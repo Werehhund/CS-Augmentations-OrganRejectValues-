@@ -1,8 +1,8 @@
 package net.corespring.csaugmentations.Block.BlockEntities;
 
 import net.corespring.csaugmentations.Client.Menus.FabricatorMenu;
-import net.corespring.csaugmentations.Registry.CSBlockEntities;
 import net.corespring.csaugmentations.Recipes.FabricatorRecipe;
+import net.corespring.csaugmentations.Registry.CSBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -34,10 +34,9 @@ public class FabricatorBlockEntity extends BlockEntity implements MenuProvider {
     public static final int BLUEPRINT_SLOT = 8;
     public static final int OUTPUT_SLOT = 9;
     public static final int TOTAL_SLOTS = 10;
-
-    private FabricatorRecipe lastRecipe;
     protected final ContainerData data;
     private final ItemStackHandler itemHandler = new ItemStackHandler(TOTAL_SLOTS);
+    private FabricatorRecipe lastRecipe;
     private int progress = 0;
     private int maxProgress = 22;
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();

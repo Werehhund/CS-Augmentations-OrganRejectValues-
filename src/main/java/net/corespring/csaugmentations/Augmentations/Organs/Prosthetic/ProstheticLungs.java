@@ -14,9 +14,5 @@ public class ProstheticLungs extends SimpleLungs {
         return 6;
     }
 
-    @Override
-    public void applyEffects(Player pPlayer) {
-
-    }
 }
 

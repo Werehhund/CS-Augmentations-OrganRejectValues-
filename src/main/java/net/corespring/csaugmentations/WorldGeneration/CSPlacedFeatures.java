@@ -19,6 +19,8 @@ public class CSPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SALT_PLACED_KEY = registerKey("salt_placed");
     public static final ResourceKey<PlacedFeature> CYCLOFUNGI_PLACED_KEY = registerKey("cyclofungi_placed");
     public static final ResourceKey<PlacedFeature> SOMNIFERUM_PLACED_KEY = registerKey("somniferum_placed");
+    public static final ResourceKey<PlacedFeature> WEED_PLACED_KEY = registerKey("weed_placed");
+    public static final ResourceKey<PlacedFeature> COCA_PLACED_KEY = registerKey("coca_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -35,7 +37,13 @@ public class CSPlacedFeatures {
                 List.of(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
 
         register(context, SOMNIFERUM_PLACED_KEY, configuredFeatures.getOrThrow(CSConfiguredFeatures.SOMNIFERUM_KEY),
-                List.of(RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+                List.of(RarityFilter.onAverageOnceEvery(8), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+
+        register(context, WEED_PLACED_KEY, configuredFeatures.getOrThrow(CSConfiguredFeatures.WEED_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(24), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
+
+        register(context, COCA_PLACED_KEY, configuredFeatures.getOrThrow(CSConfiguredFeatures.COCA_KEY),
+                List.of(RarityFilter.onAverageOnceEvery(30), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));
     }
 
 

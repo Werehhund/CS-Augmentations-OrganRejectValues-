@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "csaugmentations:limestone"
+    }
+  },
+  "result": {
+    "item": "csaugmentations:limestone_stairs",
+    "count": 4
+  }
+}

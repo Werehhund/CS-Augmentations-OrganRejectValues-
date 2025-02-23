@@ -1,7 +1,7 @@
 package net.corespring.csaugmentations.DataGen.loot;
 
 
-import net.corespring.csaugmentations.Block.CSCropBlock;
+import net.corespring.csaugmentations.Block.Crops.TwoTallCropBlock;
 import net.corespring.csaugmentations.Registry.CSBlocks;
 import net.corespring.csaugmentations.Registry.CSItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -9,7 +9,6 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -18,9 +17,9 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Set;
 
@@ -34,6 +33,10 @@ public class CSBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(CSBlocks.CULTIVATOR.get());
         this.dropSelf(CSBlocks.REFINERY.get());
         this.dropSelf(CSBlocks.FABRICATOR.get());
+        this.dropSelf(CSBlocks.DISTILLERY.get());
+        this.dropSelf(CSBlocks.CRUDE_DRYING_RACK.get());
+        this.dropSelf(CSBlocks.REFINED_DRYING_RACK.get());
+        this.dropSelf(CSBlocks.EXTRACTOR.get());
 
         this.add(CSBlocks.FOSSIL_ORE.get(),
                 block -> createOreDrop(CSBlocks.FOSSIL_ORE.get(), CSItems.FOSSIL.get()));
@@ -50,6 +53,14 @@ public class CSBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(CSBlocks.POLISHED_SALT_STAIRS.get());
         this.add(CSBlocks.POLISHED_SALT_SLAB.get(),
                 block -> createSlabItemTable(CSBlocks.POLISHED_SALT_SLAB.get()));
+        this.dropSelf(CSBlocks.LIMESTONE.get());
+        this.dropSelf(CSBlocks.LIMESTONE_STAIRS.get());
+        this.add(CSBlocks.LIMESTONE_SLAB.get(),
+                block -> createSlabItemTable(CSBlocks.SALT_SLAB.get()));
+        this.dropSelf(CSBlocks.POLISHED_LIMESTONE.get());
+        this.dropSelf(CSBlocks.POLISHED_LIMESTONE_STAIRS.get());
+        this.add(CSBlocks.POLISHED_LIMESTONE_SLAB.get(),
+                block -> createSlabItemTable(CSBlocks.POLISHED_LIMESTONE_SLAB.get()));
 
         this.dropSelf(CSBlocks.CYCLOFUNGI.get());
 
@@ -66,6 +77,30 @@ public class CSBlockLootTables extends BlockLootSubProvider {
                         .withPool(createSomniferumClusterPool(6, LootItem.lootTableItem(CSBlocks.WILD_SOMNIFERUM.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))
                         .withPool(createSomniferumClusterPool(7, LootItem.lootTableItem(CSBlocks.WILD_SOMNIFERUM.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))
         );
+
+        this.dropSelf(CSBlocks.BLOCK_WEED.get());
+        this.dropSelf(CSBlocks.BLOCK_DRIED_WEED.get());
+        this.dropSelf(CSBlocks.WILD_WEED.get());
+        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(CSBlocks.CROP_WEED.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 7))
+                .or(LootItemBlockStatePropertyCondition
+                        .hasBlockStateProperties(CSBlocks.CROP_WEED.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 8)));
+
+        this.add(CSBlocks.CROP_WEED.get(), createCropDrops(CSBlocks.CROP_WEED.get(), CSItems.WEED.get(),
+                CSItems.WEED_SEEDS.get(), lootitemcondition$builder2));
+
+        this.dropSelf(CSBlocks.WILD_COCA.get());
+        LootItemCondition.Builder lootitemcondition$builder3 = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(CSBlocks.CROP_COCA.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 7))
+                .or(LootItemBlockStatePropertyCondition
+                        .hasBlockStateProperties(CSBlocks.CROP_COCA.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 8)));
+
+        this.add(CSBlocks.CROP_COCA.get(), createCropDrops(CSBlocks.CROP_COCA.get(), CSItems.COCA.get(),
+                CSItems.COCA_SEEDS.get(), lootitemcondition$builder3));
     }
 
     private LootPool.Builder createSomniferumClusterPool(int age, LootItem.Builder<?> lootItem) {

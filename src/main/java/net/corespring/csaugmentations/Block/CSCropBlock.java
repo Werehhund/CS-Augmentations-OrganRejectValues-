@@ -1,7 +1,5 @@
 package net.corespring.csaugmentations.Block;
 
-import net.corespring.csaugmentations.Registry.CSItems;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -9,8 +7,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Properties;
 
 public class CSCropBlock extends CropBlock {
     public static final int MAX_AGE = 7;

@@ -1,0 +1,10 @@
+{
+  "type": "csaugmentations:drying",
+  "input": {
+    "item": "csaugmentations:coca"
+  },
+  "output": {
+    "item": "csaugmentations:dried_coca"
+  },
+  "processingTime": 400
+}

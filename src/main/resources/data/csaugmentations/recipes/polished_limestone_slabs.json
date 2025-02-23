@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "csaugmentations:polished_limestone"
+    }
+  },
+  "result": {
+    "item": "csaugmentations:polished_limestone_slab",
+    "count": 6
+  }
+}

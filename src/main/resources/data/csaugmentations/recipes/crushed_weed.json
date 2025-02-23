@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "csaugmentations:mortars"
+    },
+    {
+      "tag": "csaugmentations:pestles"
+    },
+    {
+      "item": "csaugmentations:dried_weed"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:crushed_weed",
+    "count": 2
+  }
+}

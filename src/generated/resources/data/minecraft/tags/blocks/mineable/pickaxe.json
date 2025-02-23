@@ -9,11 +9,24 @@
     "csaugmentations:invisible_chem",
     "csaugmentations:fabricator",
     "csaugmentations:invisible_fab",
+    "csaugmentations:distillery",
+    "csaugmentations:invisible_distillery",
+    "csaugmentations:crude_drying_rack",
+    "csaugmentations:refined_drying_rack",
+    "csaugmentations:invisible_drying_rack",
+    "csaugmentations:extractor",
+    "csaugmentations:invisible_extractor",
     "csaugmentations:salt",
     "csaugmentations:salt_slab",
     "csaugmentations:salt_stairs",
     "csaugmentations:polished_salt",
     "csaugmentations:polished_salt_slab",
-    "csaugmentations:polished_salt_stairs"
+    "csaugmentations:polished_salt_stairs",
+    "csaugmentations:limestone",
+    "csaugmentations:limestone_slab",
+    "csaugmentations:limestone_stairs",
+    "csaugmentations:polished_limestone",
+    "csaugmentations:polished_limestone_slab",
+    "csaugmentations:polished_limestone_stairs"
   ]
 }

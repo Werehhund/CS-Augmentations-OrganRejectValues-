@@ -1,10 +1,15 @@
 package net.corespring.csaugmentations;
 
 import com.mojang.logging.LogUtils;
+import net.corespring.csaugmentations.Block.RefinedDryingRackBlock;
+import net.corespring.csaugmentations.Client.Renderers.CrudeDryingRackRenderer;
+import net.corespring.csaugmentations.Client.Renderers.RefinedDryingRackRenderer;
 import net.corespring.csaugmentations.Network.CSNetwork;
 import net.corespring.csaugmentations.Registry.CSRecipeSerializers;
 import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.corespring.csaugmentations.Registry.*;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -54,6 +59,8 @@ public class CSAugmentations {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
+        BlockEntityRenderers.register(CSBlockEntities.CRUDE_DRYING_RACK_BE.get(), CrudeDryingRackRenderer::new);
+        BlockEntityRenderers.register(CSBlockEntities.REFINED_DRYING_RACK_BE.get(), RefinedDryingRackRenderer::new);
     }
 
     @SubscribeEvent

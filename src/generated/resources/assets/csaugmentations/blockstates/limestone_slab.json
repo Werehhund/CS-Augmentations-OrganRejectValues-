@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "csaugmentations:block/limestone_slab"
+    },
+    "type=double": {
+      "model": "csaugmentations:block/limestone"
+    },
+    "type=top": {
+      "model": "csaugmentations:block/limestone_slab_top"
+    }
+  }
+}

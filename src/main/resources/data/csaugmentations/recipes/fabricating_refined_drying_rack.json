@@ -1,0 +1,23 @@
+{
+  "type": "csaugmentations:fabricating",
+  "group": "fabricating",
+  "ingredients": [
+    {
+      "ingredient": {
+        "tag": "forge:plates/steel"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "tag": "forge:rods/steel"
+      },
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:refined_drying_rack",
+    "count": 1
+  },
+  "craftingTime": 12000
+}

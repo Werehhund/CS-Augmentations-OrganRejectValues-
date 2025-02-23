@@ -1,0 +1,41 @@
+{
+  "type": "csaugmentations:fabricating",
+  "group": "fabricating",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "csaugmentations:refined_optical_sensor"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "tag": "forge:wires/gold"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:artificial_nerves"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:neural_interface"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:power_control_module"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:cyber_eyes",
+    "count": 1
+  },
+  "craftingTime": 48000
+}

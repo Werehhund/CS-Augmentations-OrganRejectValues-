@@ -27,6 +27,8 @@ public class CSConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SALT_KEY = registerKey("salt_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> CYCLOFUNGI_KEY = registerKey("cyclofungi");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SOMNIFERUM_KEY = registerKey("somniferum");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WEED_KEY = registerKey("weed");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> COCA_KEY = registerKey("coca");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
@@ -54,6 +56,14 @@ public class CSConfiguredFeatures {
         register(context, SOMNIFERUM_KEY, Feature.FLOWER,
                 new RandomPatchConfiguration(19, 4, 3, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                         new SimpleBlockConfiguration(BlockStateProvider.simple(CSBlocks.WILD_SOMNIFERUM.get().defaultBlockState())))));
+
+        register(context, WEED_KEY, Feature.FLOWER,
+                new RandomPatchConfiguration(16, 4, 5, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(BlockStateProvider.simple(CSBlocks.WILD_WEED.get().defaultBlockState())))));
+
+        register(context, COCA_KEY, Feature.FLOWER,
+                new RandomPatchConfiguration(16, 4, 4, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
+                        new SimpleBlockConfiguration(BlockStateProvider.simple(CSBlocks.WILD_COCA.get().defaultBlockState())))));
 
     }
 

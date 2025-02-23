@@ -40,14 +40,20 @@ public class CSItemModelProvider extends ItemModelProvider {
 
         simpleItem((RegistryObject<Item>) CSItems.CYBER_BRAIN);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_BRAIN_IMPLANT);
+        simpleItem((RegistryObject<Item>) CSItems.CYBER_EYES);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_HEART);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_KIDNEY);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_LIVER);
+        simpleItem((RegistryObject<Item>) CSItems.CYBER_STOMACH);
 
         evenSimplerBlockItem(CSBlocks.CULTIVATOR);
         evenSimplerBlockItem(CSBlocks.REFINERY);
         evenSimplerBlockItem(CSBlocks.CHEMISTRY_TABLE);
         evenSimplerBlockItem(CSBlocks.FABRICATOR);
+        evenSimplerBlockItem(CSBlocks.DISTILLERY);
+        evenSimplerBlockItem(CSBlocks.CRUDE_DRYING_RACK);
+        evenSimplerBlockItem(CSBlocks.REFINED_DRYING_RACK);
+        evenSimplerBlockItem(CSBlocks.EXTRACTOR);
 
         simpleItem((RegistryObject<Item>) CSItems.UNFINISHED_MORTAR);
         simpleItem((RegistryObject<Item>) CSItems.UNFINISHED_PESTLE);
@@ -108,6 +114,8 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.REFINED_PLASTIC);
 
         simpleItem((RegistryObject<Item>) CSItems.DUST_SALT);
+        simpleItem((RegistryObject<Item>) CSItems.LIMESTONE_CLUMP);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_DISTILLED_WATER);
 
         simpleItem((RegistryObject<Item>) CSItems.MEAD);
 
@@ -117,16 +125,29 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.IMMUNOSUPPRESSANT);
         simpleItem((RegistryObject<Item>) CSItems.REFINED_IMMUNOSUPPRESSANT);
 
-
         simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_SOMNIFERUM);
         simpleItem((RegistryObject<Item>) CSItems.BEAKER_SILK);
         simpleItem((RegistryObject<Item>) CSItems.SOMNIFERUM_SAP);
         simpleItem((RegistryObject<Item>) CSItems.SOMNIFERUM_SEEDPOD);
 
+        simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_WEED);
+        simpleItem((RegistryObject<Item>) CSItems.WEED);
+        simpleItem((RegistryObject<Item>) CSItems.WEED_SEEDS);
+        simpleItem((RegistryObject<Item>) CSItems.DRIED_WEED);
+        simpleItem((RegistryObject<Item>) CSItems.CRUSHED_WEED);
+        simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_COCA);
+        simpleItem((RegistryObject<Item>) CSItems.COCA);
+        simpleItem((RegistryObject<Item>) CSItems.COCA_SEEDS);
+        simpleItem((RegistryObject<Item>) CSItems.DRIED_COCA);
+
         evenSimplerBlockItem(CSBlocks.SALT_SLAB);
         evenSimplerBlockItem(CSBlocks.SALT_STAIRS);
         evenSimplerBlockItem(CSBlocks.POLISHED_SALT_SLAB);
         evenSimplerBlockItem(CSBlocks.POLISHED_SALT_STAIRS);
+        evenSimplerBlockItem(CSBlocks.LIMESTONE_SLAB);
+        evenSimplerBlockItem(CSBlocks.LIMESTONE_STAIRS);
+        evenSimplerBlockItem(CSBlocks.POLISHED_LIMESTONE_SLAB);
+        evenSimplerBlockItem(CSBlocks.POLISHED_LIMESTONE_STAIRS);
 
     }
 

@@ -1,10 +1,11 @@
 package net.corespring.csaugmentations.Block.BlockEntities;
 
 import net.corespring.csaugmentations.Client.Menus.ChemistryMenu;
-import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.corespring.csaugmentations.Recipes.ChemistryRecipe;
 import net.corespring.csaugmentations.Registry.CSBlockEntities;
+import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -32,12 +33,24 @@ import java.util.Optional;
 public class ChemistryBlockEntity extends BlockEntity implements MenuProvider {
     private static final int OUTPUT_SLOT = 6;
     protected final ContainerData data;
-    private final ItemStackHandler itemHandler = new ItemStackHandler(8);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(8) {
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            if (slot == OUTPUT_SLOT) {
+                return false;
+            } else if (slot == 7) {
+                return stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL;
+            } else {
+                return super.isItemValid(slot, stack);
+            }
+        }
+    };
     private int coal_stored = 0;
     private int max_coal_stored = 64;
     private int progress = 0;
     private int maxProgress = 34;
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> inputItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> outputItemHandler = LazyOptional.empty();
 
     public ChemistryBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(CSBlockEntities.CHEMISTRY_TABLE_BE.get(), pPos, pBlockState);
@@ -87,21 +100,27 @@ public class ChemistryBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void onLoad() {
         super.onLoad();
-        lazyItemHandler = LazyOptional.of(() -> itemHandler);
+        inputItemHandler = LazyOptional.of(() -> new InputItemHandler(itemHandler));
+        outputItemHandler = LazyOptional.of(() -> new OutputItemHandler(itemHandler));
     }
 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        lazyItemHandler.invalidate();
+        inputItemHandler.invalidate();
+        outputItemHandler.invalidate();
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast();
+            if (side == Direction.DOWN) {
+                return outputItemHandler.cast();
+            } else {
+                return inputItemHandler.cast();
+            }
         }
-        return super.getCapability(cap);
+        return super.getCapability(cap, side);
     }
 
     public void drops() {
@@ -263,6 +282,84 @@ public class ChemistryBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
 
+    }
+
+    private record InputItemHandler(ItemStackHandler itemHandler) implements IItemHandler {
+
+        @Override
+        public int getSlots() {
+            return itemHandler.getSlots();
+        }
+
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return itemHandler.getStackInSlot(slot);
+        }
+
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if ((slot >= 0 && slot <= 5) || slot == 7) {
+                return itemHandler.insertItem(slot, stack, simulate);
+            }
+            return stack;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            return ItemStack.EMPTY;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return itemHandler.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return itemHandler.isItemValid(slot, stack);
+        }
+    }
+
+    private record OutputItemHandler(ItemStackHandler itemHandler) implements IItemHandler {
+
+        @Override
+        public int getSlots() {
+            return itemHandler.getSlots();
+        }
+
+        @NotNull
+        @Override
+        public ItemStack getStackInSlot(int slot) {
+            return itemHandler.getStackInSlot(slot);
+        }
+
+        @NotNull
+        @Override
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            return stack;
+        }
+
+        @NotNull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (slot == OUTPUT_SLOT) {
+                return itemHandler.extractItem(slot, amount, simulate);
+            }
+            return ItemStack.EMPTY;
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return itemHandler.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return false;
+        }
     }
 }
 

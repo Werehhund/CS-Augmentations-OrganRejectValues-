@@ -1,5 +1,6 @@
 {
   "type": "csaugmentations:chemistry",
+  "group": "chemistry",
   "ingredients": [
     {
       "item": "csaugmentations:cyclofungi"

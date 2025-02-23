@@ -1,3 +1,6 @@
 {
-  "values": []
+  "values": [
+    "csaugmentations:block_weed",
+    "csaugmentations:block_dried_weed"
+  ]
 }

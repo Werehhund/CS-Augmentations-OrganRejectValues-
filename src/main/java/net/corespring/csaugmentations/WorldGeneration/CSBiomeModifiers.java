@@ -18,6 +18,8 @@ public class CSBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SALT = registerKey("add_salt");
     public static final ResourceKey<BiomeModifier> ADD_CYCLOFUNGI = registerKey("add_cyclofungi");
     public static final ResourceKey<BiomeModifier> ADD_SOMNIFERUM = registerKey("add_somniferum");
+    public static final ResourceKey<BiomeModifier> ADD_WEED = registerKey("add_weed");
+    public static final ResourceKey<BiomeModifier> ADD_COCA = registerKey("add_coca");
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -41,6 +43,15 @@ public class CSBiomeModifiers {
         context.register(ADD_SOMNIFERUM, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_RIVER),
                 HolderSet.direct(placedFeatures.getOrThrow(CSPlacedFeatures.SOMNIFERUM_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION));
+
+        context.register(ADD_WEED, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(Tags.Biomes.IS_DESERT),
+                HolderSet.direct(placedFeatures.getOrThrow(CSPlacedFeatures.WEED_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION));
+        context.register(ADD_COCA, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_JUNGLE),
+                HolderSet.direct(placedFeatures.getOrThrow(CSPlacedFeatures.COCA_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
     }
 

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    },
+    {
+      "item": "csaugmentations:weed"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:block_weed",
+    "count": 1
+  }
+}

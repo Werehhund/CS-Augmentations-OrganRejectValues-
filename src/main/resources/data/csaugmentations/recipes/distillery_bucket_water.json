@@ -1,0 +1,16 @@
+{
+  "type": "csaugmentations:distilling",
+  "group": "distillery",
+  "ingredient": {
+    "item": "minecraft:water_bucket"
+  },
+  "result1": {
+    "item": "minecraft:bucket",
+    "count": 1
+  },
+  "result2": {
+    "item": "csaugmentations:limestone",
+    "count": 4
+  },
+  "processingTime": 800
+}

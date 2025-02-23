@@ -16,6 +16,7 @@ import net.corespring.csaugmentations.Registry.CSItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -58,6 +59,7 @@ public class FabricatorCategory implements IRecipeCategory<FabricatorRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, FabricatorRecipe recipe, IFocusGroup focusGroup) {
         int ingredientCount = recipe.getIngredientCounts().size();
+        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
 
         switch (ingredientCount) {
             case 8:
@@ -83,7 +85,7 @@ public class FabricatorCategory implements IRecipeCategory<FabricatorRecipe> {
         }
 
         builder.addSlot(RecipeIngredientRole.INPUT, 172, 33).addItemStack(new ItemStack(CSItems.BLUEPRINT.get()));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 114, 55).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 114, 55).addItemStack(recipe.getResultItem(registryAccess));
     }
 
     private void addSlotWithCount(IRecipeLayoutBuilder builder, FabricatorRecipe recipe, int index, int x, int y) {

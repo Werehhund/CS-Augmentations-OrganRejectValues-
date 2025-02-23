@@ -61,21 +61,22 @@ public class SyringeGunMenu extends AbstractContainerMenu {
     public @NotNull ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-
         if (slot != null && slot.hasItem()) {
             ItemStack stackInSlot = slot.getItem();
             itemstack = stackInSlot.copy();
 
-            if (index >= 1) {
-                if (stackInSlot.getItem() instanceof SyringeGunInjectable) {
-                    if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-            } else if (index == 0) {
+            if (index == 0) {
                 if (!this.moveItemStackTo(stackInSlot, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
+                slot.onQuickCraft(stackInSlot, itemstack);
+            }
+            else if (stackInSlot.getItem() instanceof SyringeGunInjectable) {
+                if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else {
+                return ItemStack.EMPTY;
             }
 
             if (stackInSlot.isEmpty()) {
@@ -83,6 +84,12 @@ public class SyringeGunMenu extends AbstractContainerMenu {
             } else {
                 slot.setChanged();
             }
+
+            if (stackInSlot.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, stackInSlot);
         }
         return itemstack;
     }

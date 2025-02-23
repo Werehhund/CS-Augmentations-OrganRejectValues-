@@ -1,8 +1,6 @@
 package net.corespring.csaugmentations.Registry;
 
-import net.corespring.csaugmentations.Block.BlockEntities.ChemistryBlockEntity;
-import net.corespring.csaugmentations.Block.BlockEntities.FabricatorBlockEntity;
-import net.corespring.csaugmentations.Block.BlockEntities.RefineryBlockEntity;
+import net.corespring.csaugmentations.Block.BlockEntities.*;
 import net.corespring.csaugmentations.CSAugmentations;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +27,26 @@ public class CSBlockEntities {
             BLOCK_ENTITY.register("fabricator_be", () ->
                     BlockEntityType.Builder.of(FabricatorBlockEntity::new,
                             CSBlocks.FABRICATOR.get()).build(null));
+
+    public static final Supplier<BlockEntityType<DistilleryBlockEntity>> DISTILLERY_BE =
+            BLOCK_ENTITY.register("distillery_be", () ->
+                    BlockEntityType.Builder.of(DistilleryBlockEntity::new,
+                            CSBlocks.DISTILLERY.get()).build(null));
+
+    public static final Supplier<BlockEntityType<CrudeDryingRackBlockEntity>> CRUDE_DRYING_RACK_BE =
+            BLOCK_ENTITY.register("crude_drying_rack_be", () ->
+                    BlockEntityType.Builder.of(CrudeDryingRackBlockEntity::new,
+                            CSBlocks.CRUDE_DRYING_RACK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<RefinedDryingRackBlockEntity>> REFINED_DRYING_RACK_BE =
+            BLOCK_ENTITY.register("refined_drying_rack_be", () ->
+                    BlockEntityType.Builder.of(RefinedDryingRackBlockEntity::new,
+                            CSBlocks.REFINED_DRYING_RACK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<ExtractorBlockEntity>> EXTRACTOR_BE =
+            BLOCK_ENTITY.register("extractor_be", () ->
+                    BlockEntityType.Builder.of(ExtractorBlockEntity::new,
+                            CSBlocks.EXTRACTOR.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY.register(eventBus);

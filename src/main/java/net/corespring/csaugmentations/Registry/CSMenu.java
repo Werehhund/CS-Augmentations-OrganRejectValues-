@@ -29,8 +29,16 @@ public class CSMenu {
             registerMenuType("chemistry_menu", ChemistryMenu::new);
     public static final RegistryObject<MenuType<FabricatorMenu>> FABRICATOR_MENU =
             registerMenuType("fabricator_menu", FabricatorMenu::new);
+    public static final RegistryObject<MenuType<DistilleryMenu>> DISTILLERY_MENU =
+            registerMenuType("distillery_menu", DistilleryMenu::new);
     public static final RegistryObject<MenuType<SyringeGunMenu>> SYRINGE_MENU =
             registerMenuType("syringe_menu", SyringeGunMenu::new);
+    public static final RegistryObject<MenuType<CrudeDryingRackMenu>> CRUDE_DRYING_RACK_MENU =
+            registerMenuType("crude_drying_rack_menu", CrudeDryingRackMenu::new);
+    public static final RegistryObject<MenuType<RefinedDryingRackMenu>> REFINED_DRYING_RACK_MENU =
+            registerMenuType("refined_drying_rack_menu", RefinedDryingRackMenu::new);
+    public static final RegistryObject<MenuType<ExtractorMenu>> EXTRACTOR_MENU =
+            registerMenuType("extractor_menu", ExtractorMenu::new);
 
     public static void register(IEventBus eventBus) {
         REGISTER.register(eventBus);

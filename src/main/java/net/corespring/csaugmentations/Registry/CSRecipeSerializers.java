@@ -11,13 +11,21 @@ import net.minecraftforge.registries.RegistryObject;
 public class CSRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS =
             DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, CSAugmentations.MOD_ID);
+
     public static final RegistryObject<RecipeSerializer<RefineryRecipe>> REFINING_SERIALIZER =
-            SERIALIZERS.register("refining", () -> new CSSimpleCookingSerializer<>(RefineryRecipe::new, 200));    public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATING_SERIALIZER =
+            SERIALIZERS.register("refining", () -> new CSSimpleCookingSerializer<>(RefineryRecipe::new, 200));
+    public static final RegistryObject<RecipeSerializer<CultivatorRecipe>> CULTIVATING_SERIALIZER =
             SERIALIZERS.register("cultivating", () -> new CSSingleItemSerializer.Serializer<>(CultivatorRecipe::new));
     public static final RegistryObject<RecipeSerializer<ChemistryRecipe>> CHEMISTRY_SERIALIZER =
-            SERIALIZERS.register("chemistry", () -> CSChemistrySerializer.INSTANCE);
+            SERIALIZERS.register("chemistry", () -> ChemistrySerializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<FabricatorRecipe>> FABRICATOR_SERIALIZER =
             SERIALIZERS.register("fabricating", () -> FabricatorSerializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<DistilleryRecipe>> DISTILLERY_SERIALIZER =
+            SERIALIZERS.register("distilling", () -> DistillerySerializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<DryingRecipe>> DRYING_SERIALIZER =
+            SERIALIZERS.register("drying", () -> DryingSerializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<ExtractorRecipe>> EXTRACTING_SERIALIZER =
+            SERIALIZERS.register("extracting", () -> ExtractorSerializer.INSTANCE);
 
     public static void register(IEventBus eventBus) {
         SERIALIZERS.register(eventBus);

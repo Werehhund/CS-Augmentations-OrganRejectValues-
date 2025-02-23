@@ -18,6 +18,10 @@ public class CSRenderers {
         MenuScreens.register(CSMenu.CHEMISTRY_MENU.get(), ChemistryScreen::new);
         MenuScreens.register(CSMenu.FABRICATOR_MENU.get(), FabricatorScreen::new);
         MenuScreens.register(CSMenu.SYRINGE_MENU.get(), SyringeGunScreen::new);
+        MenuScreens.register(CSMenu.DISTILLERY_MENU.get(), DistilleryScreen::new);
+        MenuScreens.register(CSMenu.CRUDE_DRYING_RACK_MENU.get(), CrudeDryingRackScreen::new);
+        MenuScreens.register(CSMenu.REFINED_DRYING_RACK_MENU.get(), RefinedDryingRackScreen::new);
+        MenuScreens.register(CSMenu.EXTRACTOR_MENU.get(), ExtractorScreen::new);
     }
 
 }

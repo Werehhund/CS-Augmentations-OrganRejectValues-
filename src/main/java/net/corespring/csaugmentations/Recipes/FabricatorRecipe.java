@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,6 @@ public class FabricatorRecipe implements Recipe<Container> {
     private final List<IngredientWithCount> ingredients;
     private final ItemStack result;
     private final int craftingTime;
-
-    public record IngredientWithCount(Ingredient ingredient, int count) {}
 
     public FabricatorRecipe(ResourceLocation id, String group, List<IngredientWithCount> ingredients, ItemStack result, int craftingTime) {
         this.id = id;
@@ -43,7 +42,7 @@ public class FabricatorRecipe implements Recipe<Container> {
     @Override
     public boolean matches(Container container, Level level) {
         List<ItemStack> inputs = new ArrayList<>();
-        for(int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             inputs.add(container.getItem(i));
         }
 
@@ -106,6 +105,9 @@ public class FabricatorRecipe implements Recipe<Container> {
     @Override
     public String getGroup() {
         return group;
+    }
+
+    public record IngredientWithCount(Ingredient ingredient, int count) {
     }
 
     public static class Type implements RecipeType<FabricatorRecipe> {

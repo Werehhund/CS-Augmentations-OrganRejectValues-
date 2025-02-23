@@ -2,7 +2,6 @@ package net.corespring.csaugmentations.Block.BlockEntities;
 
 import net.corespring.csaugmentations.Registry.CSItems;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 

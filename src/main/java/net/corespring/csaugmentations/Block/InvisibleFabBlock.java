@@ -25,7 +25,7 @@ public class InvisibleFabBlock extends Block {
 
     @Override
     public void playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        BlockPos fabPos = findFabBlock(pLevel, pPos);
+        BlockPos fabPos = findBlock(pLevel, pPos);
         if (fabPos != null) {
             BlockState fabState = pLevel.getBlockState(fabPos);
             if (fabState.getBlock() instanceof FabricatorBlock) {
@@ -36,7 +36,7 @@ public class InvisibleFabBlock extends Block {
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
 
-    private BlockPos findFabBlock(Level pLevel, BlockPos pPos) {
+    private BlockPos findBlock(Level pLevel, BlockPos pPos) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockPos adjacentPos = pPos.relative(direction);
             BlockState adjacentState = pLevel.getBlockState(adjacentPos);

@@ -3,6 +3,8 @@ package net.corespring.csaugmentations.Compat;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -15,6 +17,7 @@ import net.corespring.csaugmentations.Registry.CSBlocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -22,17 +25,23 @@ import org.jetbrains.annotations.Nullable;
 
 public class RefineryCategory implements IRecipeCategory<RefineryRecipe> {
     public static final ResourceLocation UID = new ResourceLocation(CSAugmentations.MOD_ID, "refining");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(CSAugmentations.MOD_ID, "textures/gui/refinery_jei.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(CSAugmentations.MOD_ID, "textures/gui/jei_atlas.png");
 
-    public static final RecipeType<RefineryRecipe> REFINING =
-            new RecipeType<>(UID, RefineryRecipe.class);
+    public static final RecipeType<RefineryRecipe> REFINING = new RecipeType<>(UID, RefineryRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
+    private final IDrawableAnimated progressArrow;
+    private final IDrawableAnimated fuelBar;
 
     public RefineryCategory(IGuiHelper helper) {
-        this.background = helper.createDrawable(TEXTURE, 0, 114, 82, 54);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 82, 53);
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(CSBlocks.REFINERY.get()));
+
+        IDrawableStatic progressArrowStatic = helper.createDrawable(TEXTURE, 84, 14, 24, 19);
+        IDrawableStatic fuelBarStatic = helper.createDrawable(TEXTURE, 84, 0, 14, 14);
+        this.progressArrow = helper.createAnimatedDrawable(progressArrowStatic, 200, IDrawableAnimated.StartDirection.LEFT, false);
+        this.fuelBar = helper.createAnimatedDrawable(fuelBarStatic, 300, IDrawableAnimated.StartDirection.TOP, true);
     }
 
     @Override
@@ -57,13 +66,18 @@ public class RefineryCategory implements IRecipeCategory<RefineryRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RefineryRecipe recipe, IFocusGroup focuses) {
+        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
+
         builder.addSlot(RecipeIngredientRole.INPUT, 1, 1).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 61, 19).addItemStack(recipe.getResultItem(null));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 62, 19).addItemStack(recipe.getResultItem(registryAccess));
     }
 
     @Override
     public void draw(RefineryRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        this.drawExperience(recipe, guiGraphics, 0);
+        this.progressArrow.draw(guiGraphics, 24, 19);
+        this.fuelBar.draw(guiGraphics, 2, 21);
+
+        this.drawExperience(recipe, guiGraphics, 1);
         this.drawCookTime(recipe, guiGraphics, 45);
     }
 

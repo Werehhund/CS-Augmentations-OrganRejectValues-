@@ -18,15 +18,15 @@ public class SyringeGunScreen extends AbstractContainerScreen<SyringeGunMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
-        gui.blit(BG_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+    protected void renderBg(GuiGraphics pGuiGraphics, float partialTicks, int mouseX, int mouseY) {
+        pGuiGraphics.blit(BG_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
-    public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(gui);
-        super.render(gui, mouseX, mouseY, partialTicks);
-        renderTooltip(gui, mouseX, mouseY);
+    public void render(GuiGraphics pGuiGraphics, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(pGuiGraphics);
+        super.render(pGuiGraphics, mouseX, mouseY, partialTicks);
+        renderTooltip(pGuiGraphics, mouseX, mouseY);
     }
 
     @Override

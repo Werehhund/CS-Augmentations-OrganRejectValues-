@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "csaugmentations:block/distillery",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "csaugmentations:block/distillery"
+    },
+    "facing=south": {
+      "model": "csaugmentations:block/distillery",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "csaugmentations:block/distillery",
+      "y": 270
+    }
+  }
+}

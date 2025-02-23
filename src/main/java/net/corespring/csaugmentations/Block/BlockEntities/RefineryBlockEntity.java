@@ -1,8 +1,8 @@
 package net.corespring.csaugmentations.Block.BlockEntities;
 
 import net.corespring.csaugmentations.Client.Menus.RefineryMenu;
-import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.corespring.csaugmentations.Registry.CSBlockEntities;
+import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;

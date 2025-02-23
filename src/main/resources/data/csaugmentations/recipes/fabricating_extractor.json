@@ -1,0 +1,41 @@
+{
+  "type": "csaugmentations:fabricating",
+  "group": "fabricating",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "cslibrary:steel_casing"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "tag": "forge:rods/iron"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "tag": "forge:rods/copper"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "tag": "forge:glass_panes"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:refined_blood_filter"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:extractor",
+    "count": 1
+  },
+  "craftingTime": 12000
+}

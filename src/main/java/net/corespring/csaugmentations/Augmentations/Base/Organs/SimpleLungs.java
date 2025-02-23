@@ -6,6 +6,7 @@ import net.corespring.csaugmentations.Utility.CSOrganTiers;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -33,5 +34,9 @@ public abstract class SimpleLungs extends SimpleOrgan implements IAirTime {
     @Override
     public int getAdditionalAirTime() {
         return pAirTime;
+    }
+
+    @Override
+    public void applyEffects(Player pPlayer) {
     }
 }

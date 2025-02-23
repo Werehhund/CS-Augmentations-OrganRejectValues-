@@ -49,7 +49,7 @@ public class CSSingleItemSerializer extends SingleItemRecipe {
 
             String resultString = GsonHelper.getAsString(pJson, "result");
             int count = GsonHelper.getAsInt(pJson, "count");
-            ItemStack result = new ItemStack((ItemLike) BuiltInRegistries.ITEM.get(new ResourceLocation(resultString)), count);
+            ItemStack result = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(resultString)), count);
             return this.factory.create(pRecipeId, group, ingredient, result);
         }
 

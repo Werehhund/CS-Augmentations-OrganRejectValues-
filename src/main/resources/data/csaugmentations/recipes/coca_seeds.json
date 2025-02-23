@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "csaugmentations:wild_coca"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:coca_seeds",
+    "count": 1
+  }
+}

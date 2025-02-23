@@ -28,7 +28,7 @@ public class ChemistryMenu extends AbstractContainerMenu {
     }
 
     public ChemistryMenu(int id, Inventory playerInventory, FriendlyByteBuf buf) {
-        this(id, playerInventory, (ChemistryBlockEntity) playerInventory.player.level().getBlockEntity(buf.readBlockPos()), new SimpleContainerData(4));
+        this(id, playerInventory, playerInventory.player.level().getBlockEntity(buf.readBlockPos()) instanceof ChemistryBlockEntity blockEntity ? blockEntity : null, new SimpleContainerData(4));
     }
 
     private void addBlockEntitySlots() {
@@ -66,11 +66,14 @@ public class ChemistryMenu extends AbstractContainerMenu {
             itemstack = itemstack1.copy();
 
             if (index < 8) {
-                if (!this.moveItemStackTo(itemstack1, 8, this.slots.size(), true)) {
+                if (!this.moveItemStackTo(itemstack1, 8, 44, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 0, 8, false)) {
-                return ItemStack.EMPTY;
+            }
+            else {
+                if (!this.moveItemStackTo(itemstack1, 0, 8, false)) {
+                    return ItemStack.EMPTY;
+                }
             }
 
             if (itemstack1.isEmpty()) {

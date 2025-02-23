@@ -1,5 +1,6 @@
 {
   "type": "csaugmentations:cultivating",
+  "group": "cultivating",
   "count": 4,
   "ingredient": {
     "item": "csaugmentations:loaded_refined_petri_dish"

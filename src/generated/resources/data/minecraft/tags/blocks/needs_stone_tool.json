@@ -5,6 +5,12 @@
     "csaugmentations:salt_stairs",
     "csaugmentations:polished_salt",
     "csaugmentations:polished_salt_slab",
-    "csaugmentations:polished_salt_stairs"
+    "csaugmentations:polished_salt_stairs",
+    "csaugmentations:limestone",
+    "csaugmentations:limestone_slab",
+    "csaugmentations:limestone_stairs",
+    "csaugmentations:polished_limestone",
+    "csaugmentations:polished_limestone_slab",
+    "csaugmentations:polished_limestone_stairs"
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "type": "csaugmentations:drying",
+  "input": {
+    "item": "minecraft:kelp"
+  },
+  "output": {
+    "item": "minecraft:dried_kelp"
+  },
+  "processingTime": 400
+}

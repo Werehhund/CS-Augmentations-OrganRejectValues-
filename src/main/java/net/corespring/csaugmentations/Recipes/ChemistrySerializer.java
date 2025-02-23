@@ -11,8 +11,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-public class CSChemistrySerializer implements RecipeSerializer<ChemistryRecipe> {
-    public static final CSChemistrySerializer INSTANCE = new CSChemistrySerializer();
+public class ChemistrySerializer implements RecipeSerializer<ChemistryRecipe> {
+    public static final ChemistrySerializer INSTANCE = new ChemistrySerializer();
 
     @Override
     public ChemistryRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

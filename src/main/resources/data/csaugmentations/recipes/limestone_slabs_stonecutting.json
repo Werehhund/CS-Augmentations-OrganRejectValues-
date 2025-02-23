@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "csaugmentations:limestone"
+  },
+  "result": "csaugmentations:limestone_slab",
+  "count": 2
+}

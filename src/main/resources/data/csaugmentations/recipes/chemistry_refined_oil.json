@@ -1,5 +1,6 @@
 {
   "type": "csaugmentations:chemistry",
+  "group": "chemistry",
   "ingredients": [
     {
       "tag": "csaugmentations:blood_filters"

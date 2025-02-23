@@ -18,15 +18,15 @@ public class FabricatorScreen extends AbstractContainerScreen<FabricatorMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics gui, float partialTick, int mouseX, int mouseY) {
-        gui.blit(BG_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+    protected void renderBg(GuiGraphics pGuiGraphics, float partialTick, int mouseX, int mouseY) {
+        pGuiGraphics.blit(BG_LOCATION, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 
         int progress = menu.getProgress();
         int maxProgress = menu.getMaxProgress();
 
         int progressHeight = (int) (22 * (progress / (float) maxProgress));
 
-        gui.blit(BG_LOCATION, leftPos + 102, topPos + 27 + (22 - progressHeight), 0, 166 + (22 - progressHeight), 37, progressHeight);
+        pGuiGraphics.blit(BG_LOCATION, leftPos + 102, topPos + 27 + (22 - progressHeight), 0, 166 + (22 - progressHeight), 37, progressHeight);
     }
 
     @Override

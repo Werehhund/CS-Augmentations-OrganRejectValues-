@@ -18,10 +18,15 @@ public class CSCreativeTab {
                     .title(Component.translatable("itemGroup.cs_augmentations_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
+                        //Machines
                         pOutput.accept(CSBlocks.CULTIVATOR.get());
                         pOutput.accept(CSBlocks.REFINERY.get());
                         pOutput.accept(CSBlocks.CHEMISTRY_TABLE.get());
                         pOutput.accept(CSBlocks.FABRICATOR.get());
+                        pOutput.accept(CSBlocks.DISTILLERY.get());
+                        pOutput.accept(CSBlocks.CRUDE_DRYING_RACK.get());
+                        pOutput.accept(CSBlocks.REFINED_DRYING_RACK.get());
+                        pOutput.accept(CSBlocks.EXTRACTOR.get());
 
                         pOutput.accept(CSBlocks.FOSSIL_ORE.get());
                         pOutput.accept(CSBlocks.DEEPSLATE_FOSSIL_ORE.get());
@@ -33,7 +38,33 @@ public class CSCreativeTab {
                         pOutput.accept(CSBlocks.POLISHED_SALT.get());
                         pOutput.accept(CSBlocks.POLISHED_SALT_SLAB.get());
                         pOutput.accept(CSBlocks.POLISHED_SALT_STAIRS.get());
+                        pOutput.accept(CSBlocks.LIMESTONE.get());
+                        pOutput.accept(CSBlocks.LIMESTONE_SLAB.get());
+                        pOutput.accept(CSBlocks.LIMESTONE_STAIRS.get());
+                        pOutput.accept(CSBlocks.POLISHED_LIMESTONE.get());
+                        pOutput.accept(CSBlocks.POLISHED_LIMESTONE_SLAB.get());
+                        pOutput.accept(CSBlocks.POLISHED_LIMESTONE_STAIRS.get());
 
+                        pOutput.accept(CSBlocks.BLOCK_SOMNIFERUM_SAP.get());
+                        pOutput.accept(CSBlocks.BLOCK_WEED.get());
+                        pOutput.accept(CSBlocks.BLOCK_DRIED_WEED.get());
+
+                        //Tools
+                        pOutput.accept(CSItems.SYRINGE_GUN.get());
+                        pOutput.accept(CSItems.NEURAL_ANALYZER.get());
+                        pOutput.accept(CSItems.SCALPEL.get());
+                        pOutput.accept(CSItems.HEMOSTAT.get());
+                        pOutput.accept(CSItems.RETRACTORS.get());
+                        pOutput.accept(CSItems.SUTURE.get());
+
+                        //Pharmaceuticals
+
+                        pOutput.accept(CSItems.MEAD.get());
+                        pOutput.accept(CSItems.BEAKER_SILK.get());
+                        pOutput.accept(CSItems.IMMUNOSUPPRESSANT.get());
+                        pOutput.accept(CSItems.REFINED_IMMUNOSUPPRESSANT.get());
+
+                        //Organs
                         pOutput.accept(CSItems.NATURAL_LEG.get());
                         pOutput.accept(CSItems.NATURAL_ARM.get());
                         pOutput.accept(CSItems.NATURAL_BRAIN.get());
@@ -67,6 +98,9 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.CYBER_RIBS.get());
                         pOutput.accept(CSItems.CYBER_JUMPER.get());
                         pOutput.accept(CSItems.CYBER_WARPER.get());
+                        pOutput.accept(CSItems.CYBER_STOMACH.get());
+
+                        //Crafting Components
 
                         pOutput.accept(CSItems.UNFINISHED_MORTAR.get());
                         pOutput.accept(CSItems.UNFINISHED_PESTLE.get());
@@ -74,13 +108,6 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.PESTLE.get());
                         pOutput.accept(CSItems.CRUDE_PETRI_DISH.get());
                         pOutput.accept(CSItems.REFINED_PETRI_DISH.get());
-
-                        pOutput.accept(CSItems.SYRINGE_GUN.get());
-                        pOutput.accept(CSItems.NEURAL_ANALYZER.get());
-                        pOutput.accept(CSItems.SCALPEL.get());
-                        pOutput.accept(CSItems.HEMOSTAT.get());
-                        pOutput.accept(CSItems.RETRACTORS.get());
-                        pOutput.accept(CSItems.SUTURE.get());
 
                         pOutput.accept(CSItems.LOADED_CRUDE_PETRI_DISH.get());
                         pOutput.accept(CSItems.LOADED_REFINED_PETRI_DISH.get());
@@ -127,21 +154,29 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.CRUDE_PLASTIC.get());
                         pOutput.accept(CSItems.REFINED_PLASTIC.get());
 
-                        pOutput.accept(CSItems.DUST_SALT.get());
+                        //Pharmaceutical Plants
 
-                        pOutput.accept(CSItems.MEAD.get());
-
-                        pOutput.accept(CSBlocks.CYCLOFUNGI.get());
-                        pOutput.accept(CSItems.BEAKER_CYCLOSPORINE.get());
-                        pOutput.accept(CSItems.BEAKER_SPORINE.get());
-                        pOutput.accept(CSItems.IMMUNOSUPPRESSANT.get());
-                        pOutput.accept(CSItems.REFINED_IMMUNOSUPPRESSANT.get());
-
-                        pOutput.accept(CSBlocks.BLOCK_SOMNIFERUM_SAP.get());
                         pOutput.accept(CSBlocks.WILD_SOMNIFERUM.get());
                         pOutput.accept(CSItems.SOMNIFERUM_SEEDPOD.get());
+                        pOutput.accept(CSBlocks.CYCLOFUNGI.get());
+                        pOutput.accept(CSBlocks.WILD_WEED.get());
+                        pOutput.accept(CSItems.WEED_SEEDS.get());
+                        pOutput.accept(CSItems.WEED.get());
+                        pOutput.accept(CSItems.DRIED_WEED.get());
+                        pOutput.accept(CSItems.CRUSHED_WEED.get());
+                        pOutput.accept(CSBlocks.WILD_COCA.get());
+                        pOutput.accept(CSItems.COCA_SEEDS.get());
+                        pOutput.accept(CSItems.COCA.get());
+                        pOutput.accept(CSItems.DRIED_COCA.get());
+
+                        //Pharmaceutical Crafting Components
+
+                        pOutput.accept(CSItems.DUST_SALT.get());
+                        pOutput.accept(CSItems.LIMESTONE_CLUMP.get());
                         pOutput.accept(CSItems.SOMNIFERUM_SAP.get());
-                        pOutput.accept(CSItems.BEAKER_SILK.get());
+                        pOutput.accept(CSItems.BEAKER_DISTILLED_WATER.get());
+                        pOutput.accept(CSItems.BEAKER_CYCLOSPORINE.get());
+                        pOutput.accept(CSItems.BEAKER_SPORINE.get());
 
                     }).build());
 

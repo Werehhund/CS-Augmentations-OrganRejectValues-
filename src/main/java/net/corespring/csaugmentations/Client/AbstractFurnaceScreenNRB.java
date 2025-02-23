@@ -15,8 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public abstract class AbstractFurnaceScreenNRB<T extends AbstractFurnaceMenu> extends AbstractContainerScreen<T> {
     private static final ResourceLocation RECIPE_BUTTON_LOCATION = new ResourceLocation("textures/gui/recipe_button.png");
-    private boolean widthTooNarrow;
     private final ResourceLocation texture;
+    private boolean widthTooNarrow;
 
     public AbstractFurnaceScreenNRB(T pMenu, Inventory pPlayerInventory, Component pTitle, ResourceLocation pTexture) {
         super(pMenu, pPlayerInventory, pTitle);

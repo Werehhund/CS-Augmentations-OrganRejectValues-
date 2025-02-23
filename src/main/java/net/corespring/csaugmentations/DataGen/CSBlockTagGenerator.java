@@ -42,26 +42,48 @@ public class CSBlockTagGenerator extends BlockTagsProvider {
                         CSBlocks.INVISIBLE_CHEM.get(),
                         CSBlocks.FABRICATOR.get(),
                         CSBlocks.INVISIBLE_FAB.get(),
+                        CSBlocks.DISTILLERY.get(),
+                        CSBlocks.INVISIBLE_DISTILLERY.get(),
+                        CSBlocks.CRUDE_DRYING_RACK.get(),
+                        CSBlocks.REFINED_DRYING_RACK.get(),
+                        CSBlocks.INVISIBLE_DRYING_RACK.get(),
+                        CSBlocks.EXTRACTOR.get(),
+                        CSBlocks.INVISIBLE_EXTRACTOR.get(),
                         CSBlocks.SALT.get(),
                         CSBlocks.SALT_SLAB.get(),
                         CSBlocks.SALT_STAIRS.get(),
                         CSBlocks.POLISHED_SALT.get(),
                         CSBlocks.POLISHED_SALT_SLAB.get(),
-                        CSBlocks.POLISHED_SALT_STAIRS.get());
+                        CSBlocks.POLISHED_SALT_STAIRS.get(),
+                        CSBlocks.LIMESTONE.get(),
+                        CSBlocks.LIMESTONE_SLAB.get(),
+                        CSBlocks.LIMESTONE_STAIRS.get(),
+                        CSBlocks.POLISHED_LIMESTONE.get(),
+                        CSBlocks.POLISHED_LIMESTONE_SLAB.get(),
+                        CSBlocks.POLISHED_LIMESTONE_STAIRS.get());
 
-        this.tag(BlockTags.MINEABLE_WITH_AXE);
+        this.tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(CSBlocks.CRUDE_DRYING_RACK.get());
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL);
 
-        this.tag(BlockTags.MINEABLE_WITH_HOE);
+        this.tag(BlockTags.MINEABLE_WITH_HOE)
+                .add(CSBlocks.BLOCK_WEED.get(),
+                        CSBlocks.BLOCK_DRIED_WEED.get());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(CSBlocks.SALT.get(),
-                CSBlocks.SALT_SLAB.get(),
-                CSBlocks.SALT_STAIRS.get(),
-                CSBlocks.POLISHED_SALT.get(),
-                CSBlocks.POLISHED_SALT_SLAB.get(),
-                CSBlocks.POLISHED_SALT_STAIRS.get());
+                        CSBlocks.SALT_SLAB.get(),
+                        CSBlocks.SALT_STAIRS.get(),
+                        CSBlocks.POLISHED_SALT.get(),
+                        CSBlocks.POLISHED_SALT_SLAB.get(),
+                        CSBlocks.POLISHED_SALT_STAIRS.get(),
+                        CSBlocks.LIMESTONE.get(),
+                        CSBlocks.LIMESTONE_SLAB.get(),
+                        CSBlocks.LIMESTONE_STAIRS.get(),
+                        CSBlocks.POLISHED_LIMESTONE.get(),
+                        CSBlocks.POLISHED_LIMESTONE_SLAB.get(),
+                        CSBlocks.POLISHED_LIMESTONE_STAIRS.get());
 
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)

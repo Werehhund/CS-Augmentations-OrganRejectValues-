@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "csaugmentations:block/crude_drying_rack",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "csaugmentations:block/crude_drying_rack"
+    },
+    "facing=south": {
+      "model": "csaugmentations:block/crude_drying_rack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "csaugmentations:block/crude_drying_rack",
+      "y": 270
+    }
+  }
+}

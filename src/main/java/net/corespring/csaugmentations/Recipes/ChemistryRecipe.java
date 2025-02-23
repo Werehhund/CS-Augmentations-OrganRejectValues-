@@ -2,7 +2,6 @@ package net.corespring.csaugmentations.Recipes;
 
 import net.corespring.csaugmentations.Registry.CSBlocks;
 import net.corespring.csaugmentations.Registry.CSRecipeSerializers;
-import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +71,7 @@ public class ChemistryRecipe implements Recipe<Container> {
 
     @Override
     public RecipeType<?> getType() {
-        return CSRecipeTypes.CHEMISTRY.get();
+        return Type.INSTANCE;
     }
 
     @Override
@@ -104,5 +103,10 @@ public class ChemistryRecipe implements Recipe<Container> {
 
         return remainders;
     }
+
+    public static class Type implements RecipeType<ChemistryRecipe> {
+        public static final ChemistryRecipe.Type INSTANCE = new ChemistryRecipe.Type();
+    }
+
 }
 

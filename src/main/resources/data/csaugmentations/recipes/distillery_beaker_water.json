@@ -1,0 +1,16 @@
+{
+  "type": "csaugmentations:distilling",
+  "group": "distillery",
+  "ingredient": {
+    "item": "cslibrary:beaker_water"
+  },
+  "result1": {
+    "item": "csaugmentations:beaker_distilled_water",
+    "count": 1
+  },
+  "result2": {
+    "item": "csaugmentations:limestone_clump",
+    "count": 4
+  },
+  "processingTime": 800
+}

@@ -4,38 +4,32 @@
   "ingredients": [
     {
       "ingredient": {
-        "tag": "forge:wires/gold"
+        "tag": "forge:storage_blocks/brass"
       },
       "count": 2
     },
     {
       "ingredient": {
-        "tag": "forge:nuggets/zinc"
+        "tag": "forge:storage_blocks/iron"
       },
       "count": 3
     },
     {
       "ingredient": {
-        "item": "minecraft:stone"
-      },
-      "count": 3
-    },
-    {
-      "ingredient": {
-        "item": "minecraft:redstone"
-      },
-      "count": 3
-    },
-    {
-      "ingredient": {
-        "item": "minecraft:stick"
+        "tag": "forge:plates/brass"
       },
       "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "cslibrary:steel_casing"
+      },
+      "count": 3
     }
   ],
   "result": {
-    "item": "csaugmentations:fuse",
+    "item": "csaugmentations:distillery",
     "count": 1
   },
-  "craftingTime": 200
+  "craftingTime": 12000
 }

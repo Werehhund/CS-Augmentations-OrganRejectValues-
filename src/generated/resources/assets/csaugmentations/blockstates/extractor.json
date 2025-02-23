@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "csaugmentations:block/extractor",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "csaugmentations:block/extractor"
+    },
+    "facing=south": {
+      "model": "csaugmentations:block/extractor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "csaugmentations:block/extractor",
+      "y": 270
+    }
+  }
+}

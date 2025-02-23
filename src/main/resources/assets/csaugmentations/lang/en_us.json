@@ -41,6 +41,13 @@
   "block.csaugmentations.invisible_chem": "Chemistry Table",
   "block.csaugmentations.fabricator": "Fabricator",
   "block.csaugmentations.invisible_fab": "Fabricator",
+  "block.csaugmentations.distillery": "Distillery",
+  "block.csaugmentations.invisible_distillery": "Distillery",
+  "block.csaugmentations.crude_drying_rack": "Crude Drying Rack",
+  "block.csaugmentations.refined_drying_rack": "Refined Drying Rack",
+  "block.csaugmentations.invisible_drying_rack": "Refined Drying Rack",
+  "block.csaugmentations.extractor": "Extractor",
+  "block.csaugmentations.invisible_extractor": "Extractor",
 
   "block.csaugmentations.fossil_ore": "Fossil Ore",
   "block.csaugmentations.deepslate_fossil_ore": "Deepslate Fossil Ore",
@@ -52,6 +59,12 @@
   "block.csaugmentations.polished_salt": "Polished Salt",
   "block.csaugmentations.polished_salt_stairs": "Polished Salt Stairs",
   "block.csaugmentations.polished_salt_slab": "Polished Salt Slab",
+  "block.csaugmentations.limestone": "Limestone",
+  "block.csaugmentations.limestone_stairs": "Limestone Stairs",
+  "block.csaugmentations.limestone_slab": "Limestone Slab",
+  "block.csaugmentations.polished_limestone": "Polished Limestone",
+  "block.csaugmentations.polished_limestone_stairs": "Polished Limestone Stairs",
+  "block.csaugmentations.polished_limestone_slab": "Polished Limestone Slab",
 
   "block.csaugmentations.cyclofungi": "Cyclofungi",
   "block.csaugmentations.wild_somniferum": "Somniferum",
@@ -117,6 +130,8 @@
   "item.csaugmentations.refined_plastic": "Refined Plastic",
 
   "item.csaugmentations.dust_salt": "Salt Dust",
+  "item.csaugmentations.limestone_clump": "Limestone Clump",
+  "item.csaugmentations.beaker_distilled_water": "Beaker of Distilled Water",
 
   "item.csaugmentations.mead": "Mead",
 
@@ -124,10 +139,22 @@
   "item.csaugmentations.beaker_sporine": "Beaker of Sporine",
   "item.csaugmentations.immunosuppressant": "Immunosuppressant",
   "item.csaugmentations.refined_immunosuppressant": "Refined Immunosuppressant",
-
   "item.csaugmentations.beaker_silk": "Beaker of Silk",
   "item.csaugmentations.somniferum_seedpod": "Somniferum Seedpod",
   "item.csaugmentations.somniferum_sap": "Somniferum Sap",
+  "block.csaugmentations.wild_weed": "Wild Marijuana",
+  "block.csaugmentations.crop_weed": "Marijuana Plant",
+  "block.csaugmentations.block_weed": "Block of Marijuana",
+  "block.csaugmentations.block_dried_weed": "Block of Dried Marijuana",
+  "item.csaugmentations.weed": "Marijuana",
+  "item.csaugmentations.weed_seeds": "Marijuana Seeds",
+  "item.csaugmentations.dried_weed": "Dried Marijuana",
+  "item.csaugmentations.crushed_weed": "Crushed Marijuana",
+  "block.csaugmentations.wild_coca": "Wild Coca Plant",
+  "block.csaugmentations.crop_coca": "Coca Plant",
+  "item.csaugmentations.coca": "Coca",
+  "item.csaugmentations.coca_seeds": "Coca Seeds",
+  "item.csaugmentations.dried_coca": "Dried Coca",
 
   "tooltip.csaugmentations.plus": "+",
   "tooltip.csaugmentations.cost": " Cyberware Cost",
@@ -263,5 +290,6 @@
   "sounds.csaugmentations.immunosuppressant_use": "Immunosuppressant Used",
   "sounds.csaugmentations.fabricating": "Fabricator Whir",
   "menu.csaugmentations.augment_menu": "Augmentation Menu",
+  "menu.csaugmentations.drying_rack": "Drying Rack",
   "itemGroup.cs_augmentations_tab": "[CS] Augmentations"
 }

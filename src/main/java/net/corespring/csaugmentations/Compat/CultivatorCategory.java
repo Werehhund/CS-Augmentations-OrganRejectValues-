@@ -11,6 +11,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.corespring.csaugmentations.CSAugmentations;
 import net.corespring.csaugmentations.Recipes.CultivatorRecipe;
 import net.corespring.csaugmentations.Registry.CSBlocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -53,7 +55,9 @@ public class CultivatorCategory implements IRecipeCategory<CultivatorRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, CultivatorRecipe cultivatorRecipe, IFocusGroup iFocusGroup) {
+        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
+
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 20, 32).addIngredients(cultivatorRecipe.getIngredients().get(0));
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 143, 32).addItemStack(cultivatorRecipe.getResultItem(null));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 143, 32).addItemStack(cultivatorRecipe.getResultItem(registryAccess));
     }
 }

@@ -1,0 +1,10 @@
+{
+  "type": "csaugmentations:drying",
+  "input": {
+    "item": "csaugmentations:weed"
+  },
+  "output": {
+    "item": "csaugmentations:dried_weed"
+  },
+  "processingTime": 400
+}

@@ -1,6 +1,7 @@
 package net.corespring.csaugmentations.DataGen;
 
 import net.corespring.csaugmentations.Block.CSCropBlock;
+import net.corespring.csaugmentations.Block.Crops.TwoTallCropBlock;
 import net.corespring.csaugmentations.CSAugmentations;
 import net.corespring.csaugmentations.Registry.CSBlocks;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -31,6 +31,10 @@ public class CSBlockStateProvider extends BlockStateProvider {
         CustomHorizontalLightBlock(CSBlocks.REFINERY.get(), "refinery");
         CustomHorizontalBlock(CSBlocks.CHEMISTRY_TABLE.get(), "chemistry_table");
         CustomHorizontalBlock(CSBlocks.FABRICATOR.get(), "fabricator");
+        CustomHorizontalBlock(CSBlocks.DISTILLERY.get(), "distillery");
+        CustomHorizontalBlock(CSBlocks.CRUDE_DRYING_RACK.get(), "crude_drying_rack");
+        CustomHorizontalBlock(CSBlocks.REFINED_DRYING_RACK.get(), "refined_drying_rack");
+        CustomHorizontalBlock(CSBlocks.EXTRACTOR.get(), "extractor");
 
         blockWithItem(CSBlocks.FOSSIL_ORE);
         blockWithItem(CSBlocks.DEEPSLATE_FOSSIL_ORE);
@@ -42,15 +46,26 @@ public class CSBlockStateProvider extends BlockStateProvider {
         blockWithItem(CSBlocks.POLISHED_SALT);
         stairsBlock(((StairBlock) CSBlocks.POLISHED_SALT_STAIRS.get()), blockTexture(CSBlocks.POLISHED_SALT.get()));
         slabBlock(((SlabBlock) CSBlocks.POLISHED_SALT_SLAB.get()), blockTexture(CSBlocks.POLISHED_SALT.get()), blockTexture(CSBlocks.POLISHED_SALT.get()));
+        blockWithItem(CSBlocks.LIMESTONE);
+        stairsBlock(((StairBlock) CSBlocks.LIMESTONE_STAIRS.get()), blockTexture(CSBlocks.LIMESTONE.get()));
+        slabBlock(((SlabBlock) CSBlocks.LIMESTONE_SLAB.get()), blockTexture(CSBlocks.LIMESTONE.get()), blockTexture(CSBlocks.LIMESTONE.get()));
+        blockWithItem(CSBlocks.POLISHED_LIMESTONE);
+        stairsBlock(((StairBlock) CSBlocks.POLISHED_LIMESTONE_STAIRS.get()), blockTexture(CSBlocks.POLISHED_LIMESTONE.get()));
+        slabBlock(((SlabBlock) CSBlocks.POLISHED_LIMESTONE_SLAB.get()), blockTexture(CSBlocks.POLISHED_LIMESTONE.get()), blockTexture(CSBlocks.POLISHED_LIMESTONE.get()));
 
-        this.simpleBlockWithItem(CSBlocks.CYCLOFUNGI.get(),
-                this.models().cross(this.blockTexture(CSBlocks.CYCLOFUNGI.get()).getPath(), this.blockTexture(CSBlocks.CYCLOFUNGI.get())).renderType("cutout"));
+        simpleBlockWithItem(CSBlocks.CYCLOFUNGI.get(), models().cross(blockTexture(CSBlocks.CYCLOFUNGI.get()).getPath(), blockTexture(CSBlocks.CYCLOFUNGI.get())).renderType("cutout"));
         
         blockWithItem(CSBlocks.BLOCK_SOMNIFERUM_SAP);
         simpleBlockWithItem(CSBlocks.WILD_SOMNIFERUM.get(), models().cross(blockTexture(CSBlocks.WILD_SOMNIFERUM.get()).getPath(),
                 blockTexture(CSBlocks.WILD_SOMNIFERUM.get())).renderType("cutout"));
         makeCrop((CropBlock) CSBlocks.SOMNIFERUM_CLUSTER.get(), "somniferum_stage", "somniferum_stage", 4);
 
+        blockWithItem(CSBlocks.BLOCK_WEED);
+        blockWithItem(CSBlocks.BLOCK_DRIED_WEED);
+        simpleBlockWithItem(CSBlocks.WILD_WEED.get(), models().cross(blockTexture(CSBlocks.WILD_WEED.get()).getPath(), blockTexture(CSBlocks.WILD_WEED.get())).renderType("cutout"));
+        makeTallCrop(((CropBlock) CSBlocks.CROP_WEED.get()), "weed_stage_", "weed_stage_");
+        simpleBlockWithItem(CSBlocks.WILD_COCA.get(), models().cross(blockTexture(CSBlocks.WILD_COCA.get()).getPath(), blockTexture(CSBlocks.WILD_COCA.get())).renderType("cutout"));
+        makeCrossTwoTallCrop(((CropBlock) CSBlocks.CROP_COCA.get()), "coca_stage_", "coca_stage_");
     }
 
     private void blockWithItem(Supplier<Block> blockRegistryObject) {
@@ -111,30 +126,42 @@ public class CSBlockStateProvider extends BlockStateProvider {
         simpleBlock(block, model);
     }
 
-    private void blockWithConfiguredSides(Block block, String topTexture, String bottomTexture, String frontTexture, String backTexture, String leftTexture, String rightTexture, String particleTexture) {
-        ModelFile model = models().cube(name(block),
-                        modLoc("block/" + bottomTexture),
-                        modLoc("block/" + topTexture),
-                        modLoc("block/" + frontTexture),
-                        modLoc("block/" + backTexture),
-                        modLoc("block/" + leftTexture),
-                        modLoc("block/" + rightTexture))
-                .texture("particle", modLoc("block/" + particleTexture));
-
-        simpleBlock(block, model);
+    public void makeTallCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> tallCropStates(state, block, modelName, textureName);
+        getVariantBuilder(block).forAllStates(function);
     }
 
-    private void horizontalblockWithConfiguredSides(Block block, String topTexture, String bottomTexture, String frontTexture, String backTexture, String leftTexture, String rightTexture, String particleTexture) {
-        ModelFile model = models().cube(name(block),
-                        modLoc("block/" + bottomTexture),
-                        modLoc("block/" + topTexture),
-                        modLoc("block/" + frontTexture),
-                        modLoc("block/" + backTexture),
-                        modLoc("block/" + leftTexture),
-                        modLoc("block/" + rightTexture))
-                .texture("particle", modLoc("block/" + particleTexture));
+    private ConfiguredModel[] tallCropStates(BlockState state, CropBlock block, String modelName, String textureName) {
+        int age = state.getValue(((TwoTallCropBlock) block).getAgeProperty());
+        int textureIndex = age % 8;
 
-        horizontalBlock(block, model);
+        return new ConfiguredModel[]{
+                new ConfiguredModel(models().crop(
+                        modelName + age,
+                        new ResourceLocation(CSAugmentations.MOD_ID,
+                                "block/" + textureName + textureIndex
+                        )
+                ).renderType("cutout"))
+        };
+    }
+
+    public void makeCrossTwoTallCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> makeCrossTallCropStates(state, block, modelName, textureName);
+        getVariantBuilder(block).forAllStates(function);
+    }
+
+    private ConfiguredModel[] makeCrossTallCropStates(BlockState state, CropBlock block, String modelName, String textureName) {
+        int age = state.getValue(((TwoTallCropBlock) block).getAgeProperty());
+        int textureIndex = age % 8;
+
+        return new ConfiguredModel[]{
+                new ConfiguredModel(models().cross(
+                        modelName + age,
+                        new ResourceLocation(CSAugmentations.MOD_ID,
+                                "block/" + textureName + textureIndex
+                        )
+                ).renderType("cutout"))
+        };
     }
 
     public void makeCrop(CropBlock block, String modelName, String textureName, int stages) {
