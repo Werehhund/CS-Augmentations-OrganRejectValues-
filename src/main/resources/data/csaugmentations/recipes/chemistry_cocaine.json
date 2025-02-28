@@ -1,0 +1,17 @@
+{
+  "type": "csaugmentations:chemistry",
+  "group": "chemistry",
+  "ingredients": [
+    {
+      "item": "csaugmentations:beaker_cocaine_base"
+    },
+    {
+      "item": "csaugmentations:beaker_distilled_water"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:beaker_cocaine",
+    "count": 1
+  },
+  "craftingTime": 2400
+}

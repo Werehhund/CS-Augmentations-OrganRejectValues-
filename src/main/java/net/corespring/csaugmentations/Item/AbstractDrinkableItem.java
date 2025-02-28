@@ -12,8 +12,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class DrinkableItem extends Item {
-    public DrinkableItem(Properties pProperties) {
+public abstract class AbstractDrinkableItem extends Item {
+    public AbstractDrinkableItem(Properties pProperties) {
         super(pProperties);
     }
 

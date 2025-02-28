@@ -48,6 +48,9 @@ public class CSCreativeTab {
                         pOutput.accept(CSBlocks.BLOCK_SOMNIFERUM_SAP.get());
                         pOutput.accept(CSBlocks.BLOCK_WEED.get());
                         pOutput.accept(CSBlocks.BLOCK_DRIED_WEED.get());
+                        pOutput.accept(CSBlocks.BLOCK_COKE.get());
+                        pOutput.accept(CSBlocks.BLOCK_COCA.get());
+                        pOutput.accept(CSBlocks.BLOCK_DRIED_COCA.get());
 
                         //Tools
                         pOutput.accept(CSItems.SYRINGE_GUN.get());
@@ -60,7 +63,11 @@ public class CSCreativeTab {
                         //Pharmaceuticals
 
                         pOutput.accept(CSItems.MEAD.get());
+                        pOutput.accept(CSItems.JOINT.get());
                         pOutput.accept(CSItems.BEAKER_SILK.get());
+                        pOutput.accept(CSItems.BEAKER_COCAINE.get());
+                        pOutput.accept(CSItems.COCAINE.get());
+                        pOutput.accept(CSItems.CRACK.get());
                         pOutput.accept(CSItems.IMMUNOSUPPRESSANT.get());
                         pOutput.accept(CSItems.REFINED_IMMUNOSUPPRESSANT.get());
 
@@ -112,6 +119,7 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.LOADED_CRUDE_PETRI_DISH.get());
                         pOutput.accept(CSItems.LOADED_REFINED_PETRI_DISH.get());
 
+                        pOutput.accept(CSItems.PLANT_MATTER.get());
                         pOutput.accept(CSItems.BLUEPRINT.get());
 
                         pOutput.accept(CSItems.CRUSHED_ACID_MUSHROOM.get());
@@ -125,10 +133,6 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.POWER_CONTROL_MODULE.get());
                         pOutput.accept(CSItems.CRUDE_LOGIC_COMPONENT.get());
                         pOutput.accept(CSItems.REFINED_LOGIC_COMPONENT.get());
-
-                        pOutput.accept(CSItems.DMEM.get());
-                        pOutput.accept(CSItems.NUTRIOGLOOP.get());
-                        pOutput.accept(CSItems.NBS.get());
 
                         pOutput.accept(CSItems.REINFORCED_BONE.get());
                         pOutput.accept(CSItems.BALL_SOCKET_JOINT.get());
@@ -173,10 +177,19 @@ public class CSCreativeTab {
 
                         pOutput.accept(CSItems.DUST_SALT.get());
                         pOutput.accept(CSItems.LIMESTONE_CLUMP.get());
+                        pOutput.accept(CSItems.SULFUR_DIOXIDE.get());
                         pOutput.accept(CSItems.SOMNIFERUM_SAP.get());
+                        pOutput.accept(CSItems.NUTRIOGLOOP.get());
+                        pOutput.accept(CSItems.DMEM.get());
+                        pOutput.accept(CSItems.NBS.get());
                         pOutput.accept(CSItems.BEAKER_DISTILLED_WATER.get());
+                        pOutput.accept(CSItems.BEAKER_SULFURIC_CONCENTRATE.get());
+                        pOutput.accept(CSItems.BEAKER_SULFURIC_ACID.get());
                         pOutput.accept(CSItems.BEAKER_CYCLOSPORINE.get());
                         pOutput.accept(CSItems.BEAKER_SPORINE.get());
+                        pOutput.accept(CSItems.BEAKER_CINNAMOYLCOCAINE.get());
+                        pOutput.accept(CSItems.BEAKER_COCAINE_BASE.get());
+
 
                     }).build());
 

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:dried_coca"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:block_dried_coca",
+    "count": 1
+  }
+}

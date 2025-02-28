@@ -1,0 +1,17 @@
+{
+  "type": "csaugmentations:chemistry",
+  "group": "chemistry",
+  "ingredients": [
+    {
+      "item": "csaugmentations:beaker_distilled_water"
+    },
+    {
+      "item": "csaugmentations:sulfur_dioxide"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:beaker_sulfuric_concentrate",
+    "count": 1
+  },
+  "craftingTime": 800
+}

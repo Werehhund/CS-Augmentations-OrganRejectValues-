@@ -1,6 +1,6 @@
 package net.corespring.csaugmentations.Item.Pharma;
 
-import net.corespring.csaugmentations.Item.AlcoholicBeverageItem;
+import net.corespring.csaugmentations.Item.AbstractAlcoholicBeverageItem;
 import net.corespring.cslibrary.Registry.CSItems;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public class MeadItem extends AlcoholicBeverageItem {
+public class MeadItem extends AbstractAlcoholicBeverageItem {
 
     public MeadItem(int tier, Properties pProperties) {
         super(tier, pProperties);

@@ -1,0 +1,17 @@
+{
+  "type": "csaugmentations:chemistry",
+  "group": "chemistry",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/sulfur"
+    },
+    {
+      "tag": "forge:ingots/magnesium"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:sulfur_dioxide",
+    "count": 2
+  },
+  "craftingTime": 400
+}

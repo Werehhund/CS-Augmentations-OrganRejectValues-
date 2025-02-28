@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "csaugmentations:crude_drying_rack"
+    },
+    "title": {
+      "translate": "advancements.csaugmentations.drying_racks.title"
+    },
+    "description": {
+      "translate": "advancements.csaugmentations.drying_racks.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "csaugmentations:root",
+  "criteria": {
+    "root": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "csaugmentations:crude_drying_rack",
+              "csaugmentations:refined_drying_rack"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  }
+}

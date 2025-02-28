@@ -20,6 +20,15 @@ public class CSEffects {
     public static Supplier<MobEffect> INTOXICATED =
             Mob_EFFECTS.register("intoxicated",
                     () -> new Intoxicated(MobEffectCategory.NEUTRAL, 0x561314));
+    public static Supplier<MobEffect> STONED =
+            Mob_EFFECTS.register("stoned",
+                    () -> new Stoned(MobEffectCategory.NEUTRAL, 0x561314));
+    public static Supplier<MobEffect> COKE_HIGH =
+            Mob_EFFECTS.register("coke_high",
+                    () -> new CokeHigh(MobEffectCategory.NEUTRAL, 0x561314));
+    public static Supplier<MobEffect> WITHDRAWAL =
+            Mob_EFFECTS.register("withdrawal",
+                    () -> new Withdrawal(MobEffectCategory.NEUTRAL, 0x561314));
 
     public static Supplier<MobEffect> INCISION =
             Mob_EFFECTS.register("incision",

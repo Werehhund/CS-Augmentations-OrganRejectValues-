@@ -1,0 +1,35 @@
+{
+  "type": "csaugmentations:fabricating",
+  "group": "fabricating",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "csaugmentations:refined_augmented_tissue"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:refined_plastic"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:power_control_module"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:beaker_sulfuric_acid"
+      },
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:cyber_stomach",
+    "count": 1
+  },
+  "craftingTime": 12000
+}

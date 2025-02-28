@@ -1,0 +1,21 @@
+{
+  "type": "csaugmentations:extracting",
+  "group": "extractor",
+  "input": {
+    "ingredient": {
+      "item": "csaugmentations:beaker_cinnamoylcocaine"
+    },
+    "count": 1
+  },
+  "outputs": [
+    {
+      "item": "csaugmentations:beaker_cocaine_base",
+      "count": 1
+    },
+    {
+      "item": "csaugmentations:plant_matter",
+      "count": 2
+    }
+  ],
+  "processingTime": 1200
+}

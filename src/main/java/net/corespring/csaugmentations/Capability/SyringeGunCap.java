@@ -1,6 +1,6 @@
 package net.corespring.csaugmentations.Capability;
 
-import net.corespring.csaugmentations.Item.SyringeGunInjectable;
+import net.corespring.csaugmentations.Item.AbstractSyringeGunInjectable;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -55,7 +55,7 @@ public class SyringeGunCap {
 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return stack.getItem() instanceof SyringeGunInjectable;
+            return stack.getItem() instanceof AbstractSyringeGunInjectable;
         }
     }
 

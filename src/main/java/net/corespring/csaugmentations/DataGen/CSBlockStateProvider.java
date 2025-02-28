@@ -27,6 +27,9 @@ public class CSBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(CSBlocks.INVISIBLE_CHEM);
         blockWithItem(CSBlocks.INVISIBLE_FAB);
+        blockWithItem(CSBlocks.INVISIBLE_DISTILLERY);
+        blockWithItem(CSBlocks.INVISIBLE_DRYING_RACK);
+        blockWithItem(CSBlocks.INVISIBLE_EXTRACTOR);
         CustomHorizontalBlock(CSBlocks.CULTIVATOR.get(), "cultivator");
         CustomHorizontalLightBlock(CSBlocks.REFINERY.get(), "refinery");
         CustomHorizontalBlock(CSBlocks.CHEMISTRY_TABLE.get(), "chemistry_table");
@@ -64,6 +67,9 @@ public class CSBlockStateProvider extends BlockStateProvider {
         blockWithItem(CSBlocks.BLOCK_DRIED_WEED);
         simpleBlockWithItem(CSBlocks.WILD_WEED.get(), models().cross(blockTexture(CSBlocks.WILD_WEED.get()).getPath(), blockTexture(CSBlocks.WILD_WEED.get())).renderType("cutout"));
         makeTallCrop(((CropBlock) CSBlocks.CROP_WEED.get()), "weed_stage_", "weed_stage_");
+        blockWithItem(CSBlocks.BLOCK_COKE);
+        blockWithItem(CSBlocks.BLOCK_COCA);
+        blockWithItem(CSBlocks.BLOCK_DRIED_COCA);
         simpleBlockWithItem(CSBlocks.WILD_COCA.get(), models().cross(blockTexture(CSBlocks.WILD_COCA.get()).getPath(), blockTexture(CSBlocks.WILD_COCA.get())).renderType("cutout"));
         makeCrossTwoTallCrop(((CropBlock) CSBlocks.CROP_COCA.get()), "coca_stage_", "coca_stage_");
     }

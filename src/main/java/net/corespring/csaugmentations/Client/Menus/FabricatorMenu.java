@@ -57,8 +57,15 @@ public class FabricatorMenu extends AbstractContainerMenu {
         return data.get(0);
     }
 
-    public int getMaxProgress() {
-        return data.get(1);
+    public boolean isCrafting() {
+        return data.get(0) > 0;
+    }
+
+    public int getScaledProgress() {
+        int progress = data.get(0);
+        int maxProgress = data.get(1);
+        int progressBarHeight = 22;
+        return maxProgress != 0 ? (progress * progressBarHeight) / maxProgress : 0;
     }
 
     @Override

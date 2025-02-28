@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "csaugmentations:beaker_sulfuric_concentrate"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:beaker_sulfuric_acid",
+    "count": 1
+  }
+}

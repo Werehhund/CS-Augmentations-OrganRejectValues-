@@ -36,6 +36,11 @@ public abstract class TwoTallCropBlock extends CropBlock {
             if (currentAge < TEXTURE_COUNT - 1) {
                 level.setBlock(pos, getStateForAge(currentAge + 1), 2);
             } else if (currentAge == TEXTURE_COUNT - 1) {
+                BlockPos topPos = pos.above();
+                BlockState topState = level.getBlockState(topPos);
+                if (topState.is(this) && getAge(topState) >= MAX_AGE) {
+                    return;
+                }
                 tryPlaceTopBlock(level, pos, 1);
             } else {
                 level.setBlock(pos, getStateForAge(currentAge + 1), 2);
@@ -58,6 +63,8 @@ public abstract class TwoTallCropBlock extends CropBlock {
     @Override
     public void growCrops(Level level, BlockPos pos, BlockState state) {
         int currentAge = getAge(state);
+        if (currentAge >= MAX_AGE) return;
+
         int bonemealBoost = getBonemealAgeIncrease(level);
         int targetAge = Math.min(currentAge + bonemealBoost, MAX_AGE);
 
@@ -72,6 +79,11 @@ public abstract class TwoTallCropBlock extends CropBlock {
                 }
             }
         } else if (currentAge == TEXTURE_COUNT - 1) {
+            BlockPos topPos = pos.above();
+            BlockState topState = level.getBlockState(topPos);
+            if (topState.is(this) && getAge(topState) >= MAX_AGE) {
+                return;
+            }
             tryPlaceTopBlock(level, pos, bonemealBoost);
         } else {
             level.setBlock(pos, getStateForAge(targetAge), 2);

@@ -10,7 +10,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 @EventBusSubscriber(modid = CSAugmentations.MOD_ID)
 public class CSNetwork {
-    private static final String VERSION = "1.2.0";
+    private static final String VERSION = "1.3.0";
     public static final SimpleChannel NETWORK_CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(CSAugmentations.MOD_ID, "network"),
             () -> VERSION,
@@ -43,6 +43,12 @@ public class CSNetwork {
                 .encoder(C2SToggleLegBuffsPacket::toBytes)
                 .decoder(C2SToggleLegBuffsPacket::new)
                 .consumerMainThread(C2SToggleLegBuffsPacket::handle)
+                .add();
+
+        NETWORK_CHANNEL.messageBuilder(C2SToggleNVGPacket.class, index++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(C2SToggleNVGPacket::toBytes)
+                .decoder(C2SToggleNVGPacket::new)
+                .consumerMainThread(C2SToggleNVGPacket::handle)
                 .add();
 
         NETWORK_CHANNEL.messageBuilder(C2SActivateSpinePacket.class, index++, NetworkDirection.PLAY_TO_SERVER)

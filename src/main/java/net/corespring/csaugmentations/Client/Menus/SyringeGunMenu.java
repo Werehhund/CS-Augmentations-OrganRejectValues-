@@ -1,7 +1,7 @@
 package net.corespring.csaugmentations.Client.Menus;
 
 import net.corespring.csaugmentations.Capability.SyringeGunCap;
-import net.corespring.csaugmentations.Item.SyringeGunInjectable;
+import net.corespring.csaugmentations.Item.AbstractSyringeGunInjectable;
 import net.corespring.csaugmentations.Item.SyringeGunItem;
 import net.corespring.csaugmentations.Registry.CSMenu;
 import net.minecraft.network.FriendlyByteBuf;
@@ -34,7 +34,7 @@ public class SyringeGunMenu extends AbstractContainerMenu {
             addSlot(new SlotItemHandler(handler, 0, 79, 4) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return stack.getItem() instanceof SyringeGunInjectable;
+                    return stack.getItem() instanceof AbstractSyringeGunInjectable;
                 }
             });
         });
@@ -71,7 +71,7 @@ public class SyringeGunMenu extends AbstractContainerMenu {
                 }
                 slot.onQuickCraft(stackInSlot, itemstack);
             }
-            else if (stackInSlot.getItem() instanceof SyringeGunInjectable) {
+            else if (stackInSlot.getItem() instanceof AbstractSyringeGunInjectable) {
                 if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

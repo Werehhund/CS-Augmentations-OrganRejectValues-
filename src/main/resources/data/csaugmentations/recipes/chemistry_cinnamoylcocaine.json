@@ -1,0 +1,17 @@
+{
+  "type": "csaugmentations:chemistry",
+  "group": "chemistry",
+  "ingredients": [
+    {
+      "item": "csaugmentations:dried_coca"
+    },
+    {
+      "item": "csaugmentations:beaker_sulfuric_acid"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:beaker_cinnamoylcocaine",
+    "count": 1
+  },
+  "craftingTime": 4800
+}

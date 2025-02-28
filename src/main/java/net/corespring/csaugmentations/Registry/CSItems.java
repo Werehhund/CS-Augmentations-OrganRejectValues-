@@ -11,8 +11,7 @@ import net.corespring.csaugmentations.Augmentations.Organs.Natural.*;
 import net.corespring.csaugmentations.Augmentations.Organs.Prosthetic.*;
 import net.corespring.csaugmentations.CSAugmentations;
 import net.corespring.csaugmentations.Item.*;
-import net.corespring.csaugmentations.Item.Pharma.MeadItem;
-import net.corespring.csaugmentations.Item.Pharma.SilkItem;
+import net.corespring.csaugmentations.Item.Pharma.*;
 import net.corespring.csaugmentations.Item.SurgicalEquipment.Hemostat;
 import net.corespring.csaugmentations.Item.SurgicalEquipment.Scalpel;
 import net.corespring.csaugmentations.Item.SurgicalEquipment.SurgicalEquipmentItem;
@@ -70,7 +69,7 @@ public class CSItems {
     public static final Supplier<Item> UNFINISHED_MORTAR = ITEMS.register("unfinished_mortar", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> UNFINISHED_PESTLE = ITEMS.register("unfinished_pestle", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> MORTAR = ITEMS.register("mortar", () -> new CRItem(new Item.Properties()));
-    public static final Supplier<Item> PESTLE = ITEMS.register("pestle", () -> new CRDItem(new Item.Properties().durability(20)));
+    public static final Supplier<Item> PESTLE = ITEMS.register("pestle", () -> new CRDItem(new Item.Properties().durability(20).setNoRepair()));
     public static final Supplier<Item> CRUDE_PETRI_DISH = ITEMS.register("crude_petri_dish", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> REFINED_PETRI_DISH = ITEMS.register("refined_petri_dish", () -> new Item(new Item.Properties()));
 
@@ -86,6 +85,7 @@ public class CSItems {
     public static final Supplier<Item> LOADED_REFINED_PETRI_DISH = ITEMS.register("loaded_refined_petri_dish", () -> new PetriDishItem(new Item.Properties()));
 
     public static final Supplier<Item> BLUEPRINT = ITEMS.register("blueprint", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> PLANT_MATTER = ITEMS.register("plant_matter", () -> new Item(new Item.Properties()));
 
     public static final Supplier<Item> CRUSHED_ACID_MUSHROOM = ITEMS.register("crushed_acid_mushroom", () -> new Item(new Item.Properties()));
 
@@ -98,10 +98,6 @@ public class CSItems {
     public static final Supplier<Item> POWER_CONTROL_MODULE = ITEMS.register("power_control_module", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRUDE_LOGIC_COMPONENT = ITEMS.register("crude_logic_component", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> REFINED_LOGIC_COMPONENT = ITEMS.register("refined_logic_component", () -> new Item(new Item.Properties()));
-
-    public static final Supplier<Item> DMEM = ITEMS.register("dmem", () -> new BasicBeakerItem(new Item.Properties()));
-    public static final Supplier<Item> NUTRIOGLOOP = ITEMS.register("nutriogloop", () -> new Item(new Item.Properties()));
-    public static final Supplier<Item> NBS = ITEMS.register("nbs", () -> new Item(new Item.Properties()));
 
     public static final Supplier<Item> REINFORCED_BONE = ITEMS.register("reinforced_bone", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> BALL_SOCKET_JOINT = ITEMS.register("ball_socket_joint", () -> new Item(new Item.Properties()));
@@ -133,10 +129,16 @@ public class CSItems {
     //Pharmaceutical Crafting Components//
     public static final Supplier<Item> DUST_SALT = ITEMS.register("dust_salt", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> LIMESTONE_CLUMP = ITEMS.register("limestone_clump", () -> new Item(new Item.Properties()));
-    public static final Supplier<Item> BEAKER_DISTILLED_WATER = ITEMS.register("beaker_distilled_water", () -> new Item(new Item.Properties().stacksTo(24)));
+    public static final Supplier<Item> SULFUR_DIOXIDE = ITEMS.register("sulfur_dioxide", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> NUTRIOGLOOP = ITEMS.register("nutriogloop", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> DMEM = ITEMS.register("dmem", () -> new BasicBeakerItem(new Item.Properties()));
+    public static final Supplier<Item> NBS = ITEMS.register("nbs", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> BEAKER_DISTILLED_WATER = ITEMS.register("beaker_distilled_water", () -> new Item(pBeakerItem()));
+    public static final Supplier<Item> BEAKER_SULFURIC_CONCENTRATE = ITEMS.register("beaker_sulfuric_concentrate", () -> new Item(pBeakerItem()));
+    public static final Supplier<Item> BEAKER_SULFURIC_ACID = ITEMS.register("beaker_sulfuric_acid", () -> new Item(pBeakerItem()));
 
-    public static final Supplier<Item> BEAKER_CYCLOSPORINE = ITEMS.register("beaker_cyclosporine", () -> new Item(new Item.Properties().stacksTo(24)));
-    public static final Supplier<Item> BEAKER_SPORINE = ITEMS.register("beaker_sporine", () -> new Item(new Item.Properties().stacksTo(24)));
+    public static final Supplier<Item> BEAKER_CYCLOSPORINE = ITEMS.register("beaker_cyclosporine", () -> new Item(pBeakerItem()));
+    public static final Supplier<Item> BEAKER_SPORINE = ITEMS.register("beaker_sporine", () -> new Item(pBeakerItem()));
     public static final Supplier<Item> IMMUNOSUPPRESSANT = ITEMS.register("immunosuppressant", () -> new ImmunosuppressantItem(new Item.Properties().stacksTo(16)));
     public static final Supplier<Item> REFINED_IMMUNOSUPPRESSANT = ITEMS.register("refined_immunosuppressant", () -> new RefinedImmunosuppressantItem(new Item.Properties().stacksTo(16)));
 
@@ -148,15 +150,24 @@ public class CSItems {
     public static final Supplier<Item> WEED = ITEMS.register("weed", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> DRIED_WEED = ITEMS.register("dried_weed", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> CRUSHED_WEED = ITEMS.register("crushed_weed", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> JOINT = ITEMS.register("joint", () -> new JointItem(1, new Item.Properties().stacksTo(16)));
 
     public static final Supplier<Item> COCA_SEEDS = ITEMS.register("coca_seeds", () -> new ItemNameBlockItem(CSBlocks.CROP_COCA.get(), new Item.Properties()));
     public static final Supplier<Item> COCA = ITEMS.register("coca", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> DRIED_COCA = ITEMS.register("dried_coca", () -> new Item(new Item.Properties()));
+    public static final Supplier<Item> BEAKER_CINNAMOYLCOCAINE = ITEMS.register("beaker_cinnamoylcocaine", () -> new Item(pBeakerItem()));
+    public static final Supplier<Item> BEAKER_COCAINE_BASE = ITEMS.register("beaker_cocaine_base", () -> new Item(pBeakerItem()));
+    public static final Supplier<Item> BEAKER_COCAINE = ITEMS.register("beaker_cocaine", () -> new MedicalCocaineItem(pBeakerItem()));
+    public static final Supplier<Item> COCAINE = ITEMS.register("cocaine", () -> new CocaineItem(new Item.Properties()));
+    public static final Supplier<Item> CRACK = ITEMS.register("crack", () -> new CrackItem(new Item.Properties()));
 
     //=======================================================================================================
 
     public static Item.Properties pOrganItem() {
         return new Item.Properties().stacksTo(1);
+    }
+    public static Item.Properties pBeakerItem() {
+        return new Item.Properties().stacksTo(24);
     }
 
     public static void register(IEventBus eventBus) {

@@ -1,86 +1,110 @@
 {
   "type": "minecraft:block",
-  "functions": [
-    {
-      "function": "minecraft:explosion_decay"
-    }
-  ],
   "pools": [
     {
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:any_of",
-                  "terms": [
-                    {
-                      "block": "csaugmentations:crop_weed",
-                      "condition": "minecraft:block_state_property",
-                      "properties": {
-                        "age": "7"
-                      }
-                    },
-                    {
-                      "block": "csaugmentations:crop_weed",
-                      "condition": "minecraft:block_state_property",
-                      "properties": {
-                        "age": "8"
-                      }
-                    }
-                  ]
-                }
-              ],
-              "name": "csaugmentations:weed"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "csaugmentations:weed_seeds"
-            }
-          ]
-        }
-      ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:any_of",
-          "terms": [
+          "type": "minecraft:item",
+          "conditions": [
             {
               "block": "csaugmentations:crop_weed",
               "condition": "minecraft:block_state_property",
               "properties": {
                 "age": "7"
               }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
             },
+            {
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops",
+              "function": "minecraft:apply_bonus"
+            }
+          ],
+          "name": "csaugmentations:weed"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
             {
               "block": "csaugmentations:crop_weed",
               "condition": "minecraft:block_state_property",
               "properties": {
-                "age": "8"
+                "age": "15"
               }
             }
-          ]
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops",
+              "function": "minecraft:apply_bonus"
+            }
+          ],
+          "name": "csaugmentations:weed"
         }
       ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "block": "csaugmentations:crop_weed",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "age": "7"
+                  }
+                },
+                {
+                  "block": "csaugmentations:crop_weed",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "age": "15"
+                  }
+                }
+              ]
+            }
+          ],
           "functions": [
             {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
               "enchantment": "minecraft:fortune",
-              "formula": "minecraft:binomial_with_bonus_count",
-              "function": "minecraft:apply_bonus",
-              "parameters": {
-                "extra": 3,
-                "probability": 0.5714286
-              }
+              "formula": "minecraft:ore_drops",
+              "function": "minecraft:apply_bonus"
             }
           ],
           "name": "csaugmentations:weed_seeds"

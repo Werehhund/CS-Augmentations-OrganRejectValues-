@@ -1,6 +1,5 @@
 package net.corespring.csaugmentations.DataGen.loot;
 
-
 import net.corespring.csaugmentations.Block.Crops.TwoTallCropBlock;
 import net.corespring.csaugmentations.Registry.CSBlocks;
 import net.corespring.csaugmentations.Registry.CSItems;
@@ -24,6 +23,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.Set;
 
 public class CSBlockLootTables extends BlockLootSubProvider {
+
     public CSBlockLootTables() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
@@ -81,60 +81,60 @@ public class CSBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(CSBlocks.BLOCK_WEED.get());
         this.dropSelf(CSBlocks.BLOCK_DRIED_WEED.get());
         this.dropSelf(CSBlocks.WILD_WEED.get());
-        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition
-                .hasBlockStateProperties(CSBlocks.CROP_WEED.get())
-                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 7))
-                .or(LootItemBlockStatePropertyCondition
-                        .hasBlockStateProperties(CSBlocks.CROP_WEED.get())
-                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 8)));
-
-        this.add(CSBlocks.CROP_WEED.get(), createCropDrops(CSBlocks.CROP_WEED.get(), CSItems.WEED.get(),
-                CSItems.WEED_SEEDS.get(), lootitemcondition$builder2));
-
+        this.add(CSBlocks.CROP_WEED.get(), createTwoTallCropDrops(CSBlocks.CROP_WEED.get(), CSItems.WEED.get(), CSItems.WEED_SEEDS.get()));
+        this.dropSelf(CSBlocks.BLOCK_COKE.get());
+        this.dropSelf(CSBlocks.BLOCK_COCA.get());
+        this.dropSelf(CSBlocks.BLOCK_DRIED_COCA.get());
         this.dropSelf(CSBlocks.WILD_COCA.get());
-        LootItemCondition.Builder lootitemcondition$builder3 = LootItemBlockStatePropertyCondition
-                .hasBlockStateProperties(CSBlocks.CROP_COCA.get())
-                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 7))
-                .or(LootItemBlockStatePropertyCondition
-                        .hasBlockStateProperties(CSBlocks.CROP_COCA.get())
-                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 8)));
+        this.add(CSBlocks.CROP_COCA.get(), createTwoTallCropDrops(CSBlocks.CROP_COCA.get(), CSItems.COCA.get(), CSItems.COCA_SEEDS.get()));
+    }
 
-        this.add(CSBlocks.CROP_COCA.get(), createCropDrops(CSBlocks.CROP_COCA.get(), CSItems.COCA.get(),
-                CSItems.COCA_SEEDS.get(), lootitemcondition$builder3));
+    private LootTable.Builder createTwoTallCropDrops(Block block, Item crop, Item seeds) {
+        LootItemCondition.Builder isAge7 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 7));
+        LootItemCondition.Builder isAge15 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(TwoTallCropBlock.AGE, 15));
+
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(crop)
+                                .when(isAge7)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))
+                        .add(LootItem.lootTableItem(crop)
+                                .when(isAge15)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))
+                .withPool(LootPool.lootPool()
+                        .add(LootItem.lootTableItem(seeds)
+                                .when(isAge7.or(isAge15))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
 
     private LootPool.Builder createSomniferumClusterPool(int age, LootItem.Builder<?> lootItem) {
-            return LootPool.lootPool()
-                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CSBlocks.SOMNIFERUM_CLUSTER.get())
-                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_7, age)))
-                    .add(lootItem);
-        }
+        return LootPool.lootPool()
+                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(CSBlocks.SOMNIFERUM_CLUSTER.get())
+                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.AGE_7, age)))
+                .add(lootItem);
+    }
 
     protected LootTable.Builder createRareMetalOreDrops(Block pBlock, Item pItem) {
-        return createSilkTouchDispatchTable(
-                pBlock,
-                this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)));
+        return createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)));
     }
 
     protected LootTable.Builder CreateCommonOreDrops(Block pBlock, Item pItem) {
-        return createSilkTouchDispatchTable(
-                pBlock,
-                this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)
-                        .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)))
-        );
+        return createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)
+                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
 
     protected LootTable.Builder createStoneDrops(Block pBlock, Block pItem) {
-        return createSilkTouchDispatchTable(
-                pBlock,
-                this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)));
+        return createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)));
     }
 
     protected LootTable.Builder createFourDrops(Block pBlock, Item pItem) {
-        return createSilkTouchDispatchTable(
-                pBlock,
-                this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)
-                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4)))));
+        return createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock, LootItem.lootTableItem(pItem)
+                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4)))));
     }
 
     @Override

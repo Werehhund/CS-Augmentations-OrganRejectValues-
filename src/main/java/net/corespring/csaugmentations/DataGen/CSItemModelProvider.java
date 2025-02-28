@@ -72,6 +72,7 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.LOADED_REFINED_PETRI_DISH);
 
         simpleItem((RegistryObject<Item>) CSItems.BLUEPRINT);
+        simpleItem((RegistryObject<Item>) CSItems.PLANT_MATTER);
 
         simpleItem((RegistryObject<Item>) CSItems.CRUSHED_ACID_MUSHROOM);
 
@@ -84,10 +85,6 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.POWER_CONTROL_MODULE);
         simpleItem((RegistryObject<Item>) CSItems.CRUDE_LOGIC_COMPONENT);
         simpleItem((RegistryObject<Item>) CSItems.REFINED_LOGIC_COMPONENT);
-
-        simpleItem((RegistryObject<Item>) CSItems.DMEM);
-        simpleItem((RegistryObject<Item>) CSItems.NUTRIOGLOOP);
-        simpleItem((RegistryObject<Item>) CSItems.NBS);
 
         handheldItem((RegistryObject<Item>) CSItems.REINFORCED_BONE);
         simpleItem((RegistryObject<Item>) CSItems.BALL_SOCKET_JOINT);
@@ -115,7 +112,15 @@ public class CSItemModelProvider extends ItemModelProvider {
 
         simpleItem((RegistryObject<Item>) CSItems.DUST_SALT);
         simpleItem((RegistryObject<Item>) CSItems.LIMESTONE_CLUMP);
+        simpleItem((RegistryObject<Item>) CSItems.SULFUR_DIOXIDE);
+        simpleItem((RegistryObject<Item>) CSItems.NUTRIOGLOOP);
+        simpleItem((RegistryObject<Item>) CSItems.DMEM);
+        simpleItem((RegistryObject<Item>) CSItems.NBS);
         simpleItem((RegistryObject<Item>) CSItems.BEAKER_DISTILLED_WATER);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_SULFURIC_CONCENTRATE);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_SULFURIC_ACID);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_CINNAMOYLCOCAINE);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_COCAINE_BASE);
 
         simpleItem((RegistryObject<Item>) CSItems.MEAD);
 
@@ -135,10 +140,14 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.WEED_SEEDS);
         simpleItem((RegistryObject<Item>) CSItems.DRIED_WEED);
         simpleItem((RegistryObject<Item>) CSItems.CRUSHED_WEED);
+        simpleItem((RegistryObject<Item>) CSItems.JOINT);
         simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_COCA);
         simpleItem((RegistryObject<Item>) CSItems.COCA);
         simpleItem((RegistryObject<Item>) CSItems.COCA_SEEDS);
         simpleItem((RegistryObject<Item>) CSItems.DRIED_COCA);
+        simpleItem((RegistryObject<Item>) CSItems.BEAKER_COCAINE);
+        simpleItem((RegistryObject<Item>) CSItems.COCAINE);
+        simpleItem((RegistryObject<Item>) CSItems.CRACK);
 
         evenSimplerBlockItem(CSBlocks.SALT_SLAB);
         evenSimplerBlockItem(CSBlocks.SALT_STAIRS);

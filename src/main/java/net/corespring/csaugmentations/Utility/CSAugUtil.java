@@ -3,6 +3,7 @@ package net.corespring.csaugmentations.Utility;
 import net.corespring.csaugmentations.Augmentations.Base.SimpleOrgan;
 import net.corespring.csaugmentations.Capability.OrganCap;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class CSAugUtil {

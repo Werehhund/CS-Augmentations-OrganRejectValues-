@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    },
+    {
+      "item": "csaugmentations:cocaine"
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:block_coke",
+    "count": 1
+  }
+}

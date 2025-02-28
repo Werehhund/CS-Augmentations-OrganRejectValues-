@@ -13,9 +13,11 @@ import net.corespring.csaugmentations.Utility.CSAugUtil;
 import net.corespring.csaugmentations.Utility.CSOrganClasses;
 import net.corespring.csaugmentations.Utility.CSOrganTiers;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -61,6 +63,8 @@ public class OrganCap {
         private Cyberpsychosis cyberpsychosis;
         private int currentCyberwareValue = 0;
         private int previousCyberwareValue;
+        private boolean nvgToggleActive = false;
+        private boolean nvgEffectApplied = false;
 
         public OrganData(int size) {
             super(size);
@@ -112,6 +116,8 @@ public class OrganCap {
                 csAugmentationsData.putBoolean("initialized", this.initialized);
                 csAugmentationsData.putInt("humanityLimit", this.humanityLimit);
                 csAugmentationsData.putInt("currentCyberwareValue", this.currentCyberwareValue);
+                csAugmentationsData.putBoolean("nvgToggleActive", this.nvgToggleActive);
+                csAugmentationsData.putBoolean("nvgEffectApplied", this.nvgEffectApplied);
                 player.getPersistentData().put(CSAugmentations.MOD_ID, csAugmentationsData);
             }
         }
@@ -133,6 +139,8 @@ public class OrganCap {
             tag.putInt("humanityLimit", this.humanityLimit);
             tag.put("cyberpsychosis", this.cyberpsychosis.serializeNBT());
             tag.putInt("currentCyberwareValue", this.currentCyberwareValue);
+            tag.putBoolean("nvgToggleActive", this.nvgToggleActive);
+            tag.putBoolean("nvgEffectApplied", this.nvgEffectApplied);
             return tag;
         }
 
@@ -143,6 +151,8 @@ public class OrganCap {
             this.humanityLimit = nbt.getInt("humanityLimit");
             this.cyberpsychosis.deserializeNBT(nbt.getCompound("cyberpsychosis"));
             this.currentCyberwareValue = nbt.getInt("currentCyberwareValue");
+            this.nvgToggleActive = nbt.getBoolean("nvgToggleActive");
+            this.nvgEffectApplied = nbt.getBoolean("nvgEffectApplied");
 
         }
 
@@ -254,6 +264,22 @@ public class OrganCap {
             this.humanityLimit = humanityLimit;
         }
 
+        public void setNVGToggleActive(boolean active) {
+            this.nvgToggleActive = active;
+        }
+
+        public boolean isNVGToggleActive() {
+            return nvgToggleActive;
+        }
+
+        public void setNVGEffectApplied(boolean applied) {
+            this.nvgEffectApplied = applied;
+        }
+
+        public boolean hasNVGEffectApplied() {
+            return nvgEffectApplied;
+        }
+
         public boolean shouldRefuseTrade() {
             if (isCyberpsycho()) {
                 return cyberpsychosis.shouldRefuseTrade();
@@ -269,6 +295,10 @@ public class OrganCap {
             wasUnderwaterMap.put(player, isUnderWater);
             applyEffects(CSAugUtil.armsEnabled, CSAugUtil.legsEnabled);
             applyOrganRejection();
+
+            if (nvgToggleActive && hasCyberEyes(player)) {
+                manageNightVisionEffect();
+            }
 
             if (!disableLimbCriteria()) {
                 applyEffects(CSAugUtil.armsEnabled, CSAugUtil.legsEnabled);
@@ -382,6 +412,15 @@ public class OrganCap {
             return false;
         }
 
+        public boolean hasCyberEyes(Player player) {
+            ItemStack eyesStack = getStackInSlot(CSAugUtil.OrganSlots.EYES);
+            if (!eyesStack.isEmpty() && eyesStack.getItem() instanceof SimpleOrgan organ) {
+                IOrganTiers tier = organ.getTier();
+                return tier.isAboveOrEqual(CSOrganTiers.CYBERNETIC);
+            }
+            return false;
+        }
+
         public boolean isTierAboveProsthetic(int slot) {
             ItemStack stack = getStackInSlot(slot);
             if (!stack.isEmpty() && stack.getItem() instanceof SimpleOrgan organ) {
@@ -389,6 +428,29 @@ public class OrganCap {
                 return tier.isAboveOrEqual(CSOrganTiers.CYBERNETIC);
             }
             return false;
+        }
+
+        private void manageNightVisionEffect() {
+            if (player == null || player.level().isClientSide) return;
+
+            MobEffectInstance currentEffect = player.getEffect(MobEffects.NIGHT_VISION);
+            int desiredDuration = 11 * 20;
+
+            if (currentEffect == null) {
+                if (nvgToggleActive) {
+                    player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, desiredDuration, 0, false, false, false));
+                    nvgEffectApplied = true;
+                }
+            } else {
+                if (nvgToggleActive) {
+                    if (nvgEffectApplied && currentEffect.getDuration() < desiredDuration) {
+                        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, desiredDuration, 0, false, false, false));
+                    }
+                } else if (nvgEffectApplied) {
+                    player.removeEffect(MobEffects.NIGHT_VISION);
+                    nvgEffectApplied = false;
+                }
+            }
         }
 
         private double calculateLegBuffs(boolean legsEnabled) {

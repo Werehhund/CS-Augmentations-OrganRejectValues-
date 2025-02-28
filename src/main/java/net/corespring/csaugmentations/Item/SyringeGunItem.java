@@ -7,7 +7,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -44,7 +43,7 @@ public class SyringeGunItem extends Item {
             pStack.getCapability(SyringeGunCap.SYRINGE_CAP).ifPresent(handler -> {
                 ItemStack contained = handler.getStackInSlot(0);
 
-                if (!contained.isEmpty() && contained.getItem() instanceof SyringeGunInjectable drinkable) {
+                if (!contained.isEmpty() && contained.getItem() instanceof AbstractSyringeGunInjectable drinkable) {
                     drinkable.getEffects().forEach(effect -> {
                         pTarget.addEffect(new MobEffectInstance(
                                 effect.getEffect(),

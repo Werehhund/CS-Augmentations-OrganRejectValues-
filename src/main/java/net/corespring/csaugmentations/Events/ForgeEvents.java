@@ -18,6 +18,9 @@ import net.corespring.csaugmentations.Network.Packets.S2CSyncDataPacket;
 import net.corespring.csaugmentations.Registry.CSEffects;
 import net.corespring.csaugmentations.Utility.CSAugUtil;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,10 +28,13 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -229,17 +235,24 @@ public class ForgeEvents {
 
             @SubscribeEvent
             public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-                if (event.phase == TickEvent.Phase.START) {
+                if (event.phase == TickEvent.Phase.START && !event.player.level().isClientSide()) {
                     applyKidneyEffects(event.player);
                     applyLiverEffects(event.player);
                 }
             }
 
-            private static void applyKidneyEffects(Player player) {
-                double combinedEfficiency = calculateKidneyBuffs(player);
+            @SubscribeEvent
+            public static void onLevelTick(TickEvent.LevelTickEvent event) {
+                if (event.phase == TickEvent.Phase.END && !event.level.isClientSide()) {
+                    event.level.players().forEach(EffectHandler::checkPendingWithdrawals);
+                }
+            }
+
+            private static void applyKidneyEffects(LivingEntity entity) {
+                double combinedEfficiency = calculateKidneyBuffs(entity);
                 List<MobEffectInstance> kidneyEffectsToAdd = new ArrayList<>();
 
-                for (MobEffectInstance effectInstance : new ArrayList<>(player.getActiveEffects())) {
+                for (MobEffectInstance effectInstance : new ArrayList<>(entity.getActiveEffects())) {
                     IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
 
                     if (isHarmfulEffect(effectInstance) && !mixinEffectInstance.cS_Augmentations$isEfficiencyApplied()) {
@@ -247,22 +260,23 @@ public class ForgeEvents {
                         mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(true);
                     }
 
-                    if (!player.hasEffect(effectInstance.getEffect())) {
+                    if (!entity.hasEffect(effectInstance.getEffect())) {
                         mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(false);
                     }
-
-                    if (combinedEfficiency == 0.0) {
-                        kidneyEffectsToAdd.add(new MobEffectInstance(CSEffects.KIDNEY_FAILURE.get(), 40, 0, false, false, true));
-                    }
                 }
-                addRemoveEffects(player, kidneyEffectsToAdd, new ArrayList<>());
+
+                if (combinedEfficiency == 0.0) {
+                    kidneyEffectsToAdd.add(new MobEffectInstance(CSEffects.KIDNEY_FAILURE.get(), 40, 0, false, false, true));
+                }
+
+                addRemoveEffects(entity, kidneyEffectsToAdd, new ArrayList<>());
             }
 
-            private static void applyLiverEffects(Player player) {
-                double pEfficiency = calculateLiverBuffs(player);
+            private static void applyLiverEffects(LivingEntity entity) {
+                double pEfficiency = calculateLiverBuffs(entity);
                 List<MobEffectInstance> liverEffectsToAdd = new ArrayList<>();
 
-                for (MobEffectInstance effectInstance : new ArrayList<>(player.getActiveEffects())) {
+                for (MobEffectInstance effectInstance : new ArrayList<>(entity.getActiveEffects())) {
                     IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
 
                     if (isBeneficialEffect(effectInstance) && !mixinEffectInstance.cS_Augmentations$isEfficiencyApplied()) {
@@ -270,52 +284,66 @@ public class ForgeEvents {
                         mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(true);
                     }
 
-                    if (!player.hasEffect(effectInstance.getEffect())) {
+                    if (!entity.hasEffect(effectInstance.getEffect())) {
                         mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(false);
                     }
-
-                    if (pEfficiency == 0.0) {
-                        liverEffectsToAdd.add(new MobEffectInstance(CSEffects.LIVER_FAILURE.get(), 40, 0, false, false, true));
-                    }
                 }
-                addRemoveEffects(player, liverEffectsToAdd, new ArrayList<>());
+
+                if (pEfficiency == 0.0) {
+                    liverEffectsToAdd.add(new MobEffectInstance(CSEffects.LIVER_FAILURE.get(), 40, 0, false, false, true));
+                }
+
+                addRemoveEffects(entity, liverEffectsToAdd, new ArrayList<>());
             }
 
-            private static double calculateKidneyBuffs(Player player) {
-                return calculateCombinedEfficiency(player, new int[]{CSAugUtil.OrganSlots.LEFT_KIDNEY, CSAugUtil.OrganSlots.RIGHT_KIDNEY}, CSOrganTiers.Attribute.KIDNEY_EFFICIENCY);
+            private static double calculateKidneyBuffs(LivingEntity entity) {
+                return calculateCombinedEfficiency(entity,
+                        new int[]{CSAugUtil.OrganSlots.LEFT_KIDNEY, CSAugUtil.OrganSlots.RIGHT_KIDNEY},
+                        CSOrganTiers.Attribute.KIDNEY_EFFICIENCY
+                );
             }
 
-            private static double calculateLiverBuffs(Player player) {
-                return calculateCombinedEfficiency(player, new int[]{CSAugUtil.OrganSlots.LIVER}, CSOrganTiers.Attribute.LIVER_EFFICIENCY);
+            private static double calculateLiverBuffs(LivingEntity entity) {
+                return calculateCombinedEfficiency(entity,
+                        new int[]{CSAugUtil.OrganSlots.LIVER},
+                        CSOrganTiers.Attribute.LIVER_EFFICIENCY
+                );
             }
 
             private static void adjustEffectDuration(MobEffectInstance effectInstance, double combinedEfficiency) {
                 IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
                 int duration = mixinEffectInstance.cS_Augmentations$getDuration();
-                float multiplier = combinedEfficiency > 1.0 ? 1.0f / (float) combinedEfficiency : 1.0f + (1.0f - (float) combinedEfficiency);
+                float multiplier = combinedEfficiency > 1.0 ?
+                        1.0f / (float) combinedEfficiency :
+                        1.0f + (1.0f - (float) combinedEfficiency);
                 mixinEffectInstance.cS_Augmentations$setDuration((int) (duration * multiplier));
             }
 
             private static void adjustEffectDurationAndTier(MobEffectInstance effectInstance, double combinedEfficiency) {
                 IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
                 int duration = mixinEffectInstance.cS_Augmentations$getDuration();
-                float multiplier = combinedEfficiency > 1.0 ? 1.0f + (float) (combinedEfficiency - 1.0) : 1.0f - (1.0f - (float) combinedEfficiency);
+                float multiplier = combinedEfficiency > 1.0 ?
+                        1.0f + (float) (combinedEfficiency - 1.0) :
+                        1.0f - (1.0f - (float) combinedEfficiency);
                 mixinEffectInstance.cS_Augmentations$setDuration((int) (duration * multiplier));
 
                 int additionalTiers = (int) ((combinedEfficiency - 1.0) / 0.5);
-                mixinEffectInstance.cS_Augmentations$setAmplifier(mixinEffectInstance.cS_Augmentations$getAmplifier() + additionalTiers);
+                mixinEffectInstance.cS_Augmentations$setAmplifier(
+                        mixinEffectInstance.cS_Augmentations$getAmplifier() + additionalTiers
+                );
             }
 
-            private static double calculateCombinedEfficiency(Player player, int[] slots, CSOrganTiers.Attribute attribute) {
+            private static double calculateCombinedEfficiency(LivingEntity entity, int[] slots, CSOrganTiers.Attribute attribute) {
                 AtomicDouble totalEfficiency = new AtomicDouble(0.0);
 
                 Arrays.stream(slots).forEach(slot -> {
-                    player.getCapability(OrganCap.ORGAN_DATA).ifPresent(organData -> {
+                    entity.getCapability(OrganCap.ORGAN_DATA).ifPresent(organData -> {
                         ItemStack stack = organData.getStackInSlot(slot);
-
-                        double efficiency = !stack.isEmpty() && stack.getItem() instanceof SimpleOrgan organ && organ.hasAttribute(attribute)
-                                ? organ.getDoubleAttribute(attribute) : 0.0;
-
+                        double efficiency = !stack.isEmpty() &&
+                                stack.getItem() instanceof SimpleOrgan organ &&
+                                organ.hasAttribute(attribute) ?
+                                organ.getDoubleAttribute(attribute) :
+                                0.0;
                         totalEfficiency.addAndGet(efficiency);
                     });
                 });
@@ -323,18 +351,48 @@ public class ForgeEvents {
             }
 
             private static boolean isHarmfulEffect(MobEffectInstance effectInstance) {
-                MobEffectCategory category = effectInstance.getEffect().getCategory();
-                return category == MobEffectCategory.HARMFUL;
+                return effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL;
             }
 
             private static boolean isBeneficialEffect(MobEffectInstance effectInstance) {
-                MobEffectCategory category = effectInstance.getEffect().getCategory();
-                return category == MobEffectCategory.BENEFICIAL;
+                return effectInstance.getEffect().getCategory() == MobEffectCategory.BENEFICIAL;
             }
 
-            private static void addRemoveEffects(Player player, List<MobEffectInstance> effectsToAdd, List<MobEffectInstance> effectsToRemove) {
-                effectsToAdd.forEach(player::addEffect);
-                effectsToRemove.forEach(effect -> player.removeEffect(effect.getEffect()));
+            private static void addRemoveEffects(LivingEntity entity,
+                                                 List<MobEffectInstance> effectsToAdd,
+                                                 List<MobEffectInstance> effectsToRemove) {
+                effectsToAdd.forEach(entity::addEffect);
+                effectsToRemove.forEach(effect -> entity.removeEffect(effect.getEffect()));
+            }
+
+            private static void checkPendingWithdrawals(LivingEntity entity) {
+                CompoundTag data = entity.getPersistentData();
+                long currentTime = entity.getServer().getTickCount();
+
+                if (data.contains("PendingWithdrawals", Tag.TAG_LIST)) {
+                    ListTag withdrawals = data.getList("PendingWithdrawals", Tag.TAG_COMPOUND);
+                    ListTag newWithdrawals = new ListTag();
+
+                    for (Tag tag : withdrawals) {
+                        CompoundTag entry = (CompoundTag) tag;
+                        if (currentTime >= entry.getLong("ExpiresAt")) {
+                            applyWithdrawal(entity, entry);
+                        } else {
+                            newWithdrawals.add(entry);
+                        }
+                    }
+
+                    data.put("PendingWithdrawals", newWithdrawals);
+                }
+            }
+
+            private static void applyWithdrawal(LivingEntity entity, CompoundTag entry) {
+                entity.addEffect(new MobEffectInstance(
+                        CSEffects.WITHDRAWAL.get(),
+                        entry.getInt("Duration"),
+                        entry.getInt("Strength"),
+                        false, false, true
+                ));
             }
         }
 

@@ -1,0 +1,10 @@
+{
+  "type": "csaugmentations:drying",
+  "input": {
+    "item": "csaugmentations:beaker_cocaine"
+  },
+  "output": {
+    "item": "csaugmentations:cocaine"
+  },
+  "processingTime": 800
+}

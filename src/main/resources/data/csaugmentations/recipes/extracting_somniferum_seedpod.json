@@ -1,0 +1,21 @@
+{
+  "type": "csaugmentations:extracting",
+  "group": "extractor",
+  "input": {
+    "ingredient": {
+      "item": "csaugmentations:somniferum_seedpod"
+    },
+    "count": 1
+  },
+  "outputs": [
+    {
+      "item": "csaugmentations:somniferum_sap",
+      "count": 1
+    },
+    {
+      "item": "csaugmentations:plant_matter",
+      "count": 1
+    }
+  ],
+  "processingTime": 1200
+}

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -108,18 +109,24 @@ public class CSBlocks {
             () -> new HoneyBlock(BlockBehaviour.Properties.of().strength(1f).sound(SoundType.HONEY_BLOCK)));
 
     public static final Supplier<Block> WILD_WEED = registerBlock("wild_weed",
-            () -> new WeedDrugBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).noOcclusion().noCollission()));
+            () -> new WeedDrugBlock(BlockBehaviour.Properties.of().strength(0.1f).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission()));
     public static final Supplier<Block> CROP_WEED = registerBlock("crop_weed",
-            () -> new WeedCrop(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
+            () -> new WeedCrop(BlockBehaviour.Properties.of().strength(0.1f).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission()));
     public static final Supplier<Block> BLOCK_WEED = registerBlock("block_weed",
-            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).sound(SoundType.GRASS)));
+            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).instrument(NoteBlockInstrument.BANJO).sound(SoundType.GRASS)));
     public static final Supplier<Block> BLOCK_DRIED_WEED = registerBlock("block_dried_weed",
-            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).sound(SoundType.GRASS)));
+            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).instrument(NoteBlockInstrument.BANJO).sound(SoundType.GRASS)));
 
     public static final Supplier<Block> WILD_COCA = registerBlock("wild_coca",
-            () -> new WildDrugBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).noOcclusion().noCollission()));
+            () -> new WildDrugBlock(BlockBehaviour.Properties.of().strength(0.1f).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission()));
     public static final Supplier<Block> CROP_COCA = registerBlock("crop_coca",
-            () -> new CocaCrop(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
+            () -> new CocaCrop(BlockBehaviour.Properties.of().strength(0.1f).sound(SoundType.GRASS).instabreak().noOcclusion().noCollission()));
+    public static final Supplier<Block> BLOCK_COKE = registerBlock("block_coke",
+            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).sound(SoundType.SAND)));
+    public static final Supplier<Block> BLOCK_COCA = registerBlock("block_coca",
+            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).instrument(NoteBlockInstrument.BANJO).sound(SoundType.GRASS)));
+    public static final Supplier<Block> BLOCK_DRIED_COCA = registerBlock("block_dried_coca",
+            () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).instrument(NoteBlockInstrument.BANJO).sound(SoundType.GRASS)));
 
 
     private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {

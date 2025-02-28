@@ -1,22 +1,28 @@
 package net.corespring.csaugmentations.Events;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import net.corespring.csaugmentations.CSAugmentations;
 import net.corespring.csaugmentations.Capability.OrganCap;
 import net.corespring.csaugmentations.Client.Overlays.*;
 import net.corespring.csaugmentations.Network.CSNetwork;
-import net.corespring.csaugmentations.Network.Packets.C2SActivateSpinePacket;
-import net.corespring.csaugmentations.Network.Packets.C2SToggleArmBuffsPacket;
-import net.corespring.csaugmentations.Network.Packets.C2SToggleLegBuffsPacket;
-import net.corespring.csaugmentations.Network.Packets.S2CSyncDataPacket;
+import net.corespring.csaugmentations.Network.Packets.*;
 import net.corespring.csaugmentations.Utility.CSAugUtil;
 import net.corespring.csaugmentations.Utility.KeyBinding;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.io.IOException;
 
 public class ClientEvents {
     private static int zoomTime = 0;
@@ -39,6 +45,7 @@ public class ClientEvents {
 
             if (KeyBinding.NVG_KEY.consumeClick() && hasFeatureRequirements) {
                 CSAugUtil.nvgEnabled = !CSAugUtil.nvgEnabled;
+                CSNetwork.NETWORK_CHANNEL.sendToServer(new C2SToggleNVGPacket(CSAugUtil.nvgEnabled));
             }
 
             if (KeyBinding.ARMS_KEY.consumeClick()) {
@@ -114,6 +121,7 @@ public class ClientEvents {
                 event.registerBelowAll("liver_failure_overlay", new LiverFailureOverlay());
                 event.registerBelowAll("organ_rejection_overlay", new OrganRejectionOverlay());
                 event.registerBelowAll("immunosuppressant_overlay", new ImmunosuppressantOverlay());
+                event.registerBelowAll("withdrawal_overlay", new WithdrawalOverlay());
             }
 
             public static void updateClientCapability(S2CSyncDataPacket packet) {
@@ -121,6 +129,7 @@ public class ClientEvents {
                 if (player != null && player.getId() == packet.getPlayerId()) {
                     player.getCapability(OrganCap.ORGAN_DATA).ifPresent(data -> {
                         data.deserializeNBT(packet.getOrganData().serializeNBT());
+                        CSAugUtil.nvgEnabled = data.isNVGToggleActive();
                         if (player.containerMenu instanceof net.corespring.csaugmentations.Client.Menus.AugmentMenu menu) {
                             menu.broadcastChanges();
                         }

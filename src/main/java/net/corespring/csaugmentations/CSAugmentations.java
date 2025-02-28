@@ -9,6 +9,7 @@ import net.corespring.csaugmentations.Registry.CSRecipeSerializers;
 import net.corespring.csaugmentations.Registry.CSRecipeTypes;
 import net.corespring.csaugmentations.Registry.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,6 +57,13 @@ public class CSAugmentations {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         CSNetwork.init();
+        ComposterBlock.COMPOSTABLES.put(CSItems.COCA_SEEDS.get(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(CSItems.COCA.get(), 0.65f);
+        ComposterBlock.COMPOSTABLES.put(CSItems.WEED_SEEDS.get(), 0.3f);
+        ComposterBlock.COMPOSTABLES.put(CSItems.WEED.get(), 0.65f);
+        ComposterBlock.COMPOSTABLES.put(CSItems.SOMNIFERUM_SEEDPOD.get(), 0.35f);
+        ComposterBlock.COMPOSTABLES.put(CSBlocks.WILD_SOMNIFERUM.get(), 0.65f);
+        ComposterBlock.COMPOSTABLES.put(CSItems.PLANT_MATTER.get(), 0.95f);
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

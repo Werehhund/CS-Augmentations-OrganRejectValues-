@@ -16,7 +16,7 @@
     "item": "csaugmentations:beaker_sporine",
     "count": 3
   },
-  "craftingTime": 48000,
+  "craftingTime": 24000,
   "needsYeast": "true",
   "needsBottle": "false"
 }
