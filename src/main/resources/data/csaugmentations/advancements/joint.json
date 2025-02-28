@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "csaugmentations:joint"
+    },
+    "title": {
+      "translate": "advancements.csaugmentations.joint.title"
+    },
+    "description": {
+      "translate": "advancements.csaugmentations.joint.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "csaugmentations:chemistry",
+  "criteria": {
+    "root": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "csaugmentations:joint"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 5
+  }
+}

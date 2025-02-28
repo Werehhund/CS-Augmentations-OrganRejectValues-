@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "csaugmentations:wild_weed"
+    },
+    "title": {
+      "translate": "advancements.csaugmentations.weed.title"
+    },
+    "description": {
+      "translate": "advancements.csaugmentations.weed.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "minecraft:husbandry/plant_seed",
+  "criteria": {
+    "root": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "csaugmentations:wild_weed"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 4
+  }
+}

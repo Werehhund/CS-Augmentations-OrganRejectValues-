@@ -131,17 +131,20 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.REFINED_IMMUNOSUPPRESSANT);
 
         simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_SOMNIFERUM);
+        complexBlockwithBlockTexture((RegistryObject<Block>) CSBlocks.SOMNIFERUM_CLUSTER, "somniferum_stage3");
         simpleItem((RegistryObject<Item>) CSItems.BEAKER_SILK);
         simpleItem((RegistryObject<Item>) CSItems.SOMNIFERUM_SAP);
         simpleItem((RegistryObject<Item>) CSItems.SOMNIFERUM_SEEDPOD);
 
         simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_WEED);
+        complexBlockwithBlockTexture((RegistryObject<Block>) CSBlocks.CROP_WEED, "weed_stage_7");
         simpleItem((RegistryObject<Item>) CSItems.WEED);
         simpleItem((RegistryObject<Item>) CSItems.WEED_SEEDS);
         simpleItem((RegistryObject<Item>) CSItems.DRIED_WEED);
         simpleItem((RegistryObject<Item>) CSItems.CRUSHED_WEED);
         simpleItem((RegistryObject<Item>) CSItems.JOINT);
         simpleBlockItemBlockTexture((RegistryObject<Block>) CSBlocks.WILD_COCA);
+        complexBlockwithBlockTexture((RegistryObject<Block>) CSBlocks.CROP_COCA, "coca_stage_7");
         simpleItem((RegistryObject<Item>) CSItems.COCA);
         simpleItem((RegistryObject<Item>) CSItems.COCA_SEEDS);
         simpleItem((RegistryObject<Item>) CSItems.DRIED_COCA);
@@ -175,6 +178,12 @@ public class CSItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(CSAugmentations.MOD_ID, "item/" + texturename));
+    }
+
+    private ItemModelBuilder complexBlockwithBlockTexture(RegistryObject<Block> item, String texturename) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(CSAugmentations.MOD_ID, "block/" + texturename));
     }
 
     public void evenSimplerBlockItem(Supplier<Block> block) {
