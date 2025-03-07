@@ -26,7 +26,7 @@ public class CSOrganClasses {
         validClasses.put(12, SimpleHeart.class);
         validClasses.put(13, SimpleStomach.class);
         validClasses.put(14, SimpleSkin.class);
-        validClasses.put(15, SimplePowerSource.class);
+        validClasses.put(15, SimpleHeartUpgrade.class);
     }
 
     public Class<? extends SimpleOrgan> getOrganClass(int slot) {

@@ -44,6 +44,7 @@ public class CSItemModelProvider extends ItemModelProvider {
         simpleItem((RegistryObject<Item>) CSItems.CYBER_HEART);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_KIDNEY);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_LIVER);
+        simpleItem((RegistryObject<Item>) CSItems.CYBER_LUNGS);
         simpleItem((RegistryObject<Item>) CSItems.CYBER_STOMACH);
 
         evenSimplerBlockItem(CSBlocks.CULTIVATOR);

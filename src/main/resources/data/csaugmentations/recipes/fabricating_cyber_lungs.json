@@ -1,0 +1,47 @@
+{
+  "type": "csaugmentations:fabricating",
+  "group": "fabricating",
+  "ingredients": [
+    {
+      "ingredient": {
+        "tag": "forge:nuggets/silver"
+      },
+      "count": 16
+    },
+    {
+      "ingredient": {
+        "tag": "forge:wires/gold"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:refined_augmented_tissue"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "cslibrary:valve_train"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "csaugmentations:power_control_module"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:phantom_membrane"
+      },
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "csaugmentations:cyber_lungs",
+    "count": 1
+  },
+  "craftingTime": 24000
+}

@@ -26,6 +26,7 @@ public class JointItem extends AbstractDrinkableItem {
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         if (!pLevel.isClientSide) {
             applyStonedEffect(pLivingEntity);
+            pStack.shrink(1);
         }
         return pStack;
     }

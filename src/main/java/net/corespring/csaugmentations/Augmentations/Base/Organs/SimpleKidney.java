@@ -4,6 +4,7 @@ import net.corespring.csaugmentations.Augmentations.Base.SimpleOrgan;
 import net.corespring.csaugmentations.Utility.CSOrganTiers;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -25,5 +26,12 @@ public abstract class SimpleKidney extends SimpleOrgan {
                 .append("" + pEfficiency)
                 .append(Component.translatable("tooltip.csaugmentations.kidney"))
                 .withStyle(ChatFormatting.BLUE));
+        if(Screen.hasShiftDown()) {
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.separator").withStyle(ChatFormatting.LIGHT_PURPLE));
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.kidney_desc1").withStyle(ChatFormatting.GOLD));
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.kidney_desc2").withStyle(ChatFormatting.GOLD));
+        } else {
+            pTooltipComponents.add(Component.translatable("tooltip.cslibrary.shift_info").withStyle(ChatFormatting.GOLD));
+        }
     }
 }

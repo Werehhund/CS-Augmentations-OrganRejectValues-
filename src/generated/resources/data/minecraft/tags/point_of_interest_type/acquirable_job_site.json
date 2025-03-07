@@ -1,0 +1,8 @@
+{
+  "values": [
+    {
+      "id": "csaugmentations:chem_poi",
+      "required": false
+    }
+  ]
+}

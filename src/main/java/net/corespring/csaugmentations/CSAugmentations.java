@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.corespring.csaugmentations.Block.RefinedDryingRackBlock;
 import net.corespring.csaugmentations.Client.Renderers.CrudeDryingRackRenderer;
 import net.corespring.csaugmentations.Client.Renderers.RefinedDryingRackRenderer;
+import net.corespring.csaugmentations.Entities.CSVillagers;
 import net.corespring.csaugmentations.Network.CSNetwork;
 import net.corespring.csaugmentations.Registry.CSRecipeSerializers;
 import net.corespring.csaugmentations.Registry.CSRecipeTypes;
@@ -41,6 +42,7 @@ public class CSAugmentations {
 
         CSBlockEntities.register(modEventBus);
         CSEffects.register(modEventBus);
+        CSVillagers.register(modEventBus);
         CSMenu.register(modEventBus);
         CSRecipeSerializers.register(modEventBus);
         CSRecipeTypes.register(modEventBus);

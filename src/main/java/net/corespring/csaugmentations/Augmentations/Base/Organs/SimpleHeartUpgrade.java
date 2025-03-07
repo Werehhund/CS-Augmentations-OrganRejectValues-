@@ -10,8 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class SimplePowerSource extends SimpleOrgan {
-    public SimplePowerSource(IOrganTiers pTier, Properties pProperties) {
+public abstract class SimpleHeartUpgrade extends SimpleOrgan {
+    public SimpleHeartUpgrade(IOrganTiers pTier, Properties pProperties) {
         super(pTier, pProperties);
     }
 

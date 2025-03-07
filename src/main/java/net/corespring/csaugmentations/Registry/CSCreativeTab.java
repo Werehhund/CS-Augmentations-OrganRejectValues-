@@ -102,6 +102,7 @@ public class CSCreativeTab {
                         pOutput.accept(CSItems.CYBER_HEART.get());
                         pOutput.accept(CSItems.CYBER_KIDNEY.get());
                         pOutput.accept(CSItems.CYBER_LIVER.get());
+                        pOutput.accept(CSItems.CYBER_LUNGS.get());
                         pOutput.accept(CSItems.CYBER_RIBS.get());
                         pOutput.accept(CSItems.CYBER_JUMPER.get());
                         pOutput.accept(CSItems.CYBER_WARPER.get());

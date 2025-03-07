@@ -1,6 +1,7 @@
 package net.corespring.csaugmentations.Capability;
 
 import com.mojang.logging.LogUtils;
+import net.corespring.csaugmentations.Augmentations.Base.Organs.SimpleHeart;
 import net.corespring.csaugmentations.Augmentations.Base.Organs.SimpleLungs;
 import net.corespring.csaugmentations.Augmentations.Base.SimpleOrgan;
 import net.corespring.csaugmentations.CSAugmentations;
@@ -13,7 +14,6 @@ import net.corespring.csaugmentations.Utility.CSAugUtil;
 import net.corespring.csaugmentations.Utility.CSOrganClasses;
 import net.corespring.csaugmentations.Utility.CSOrganTiers;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -32,8 +33,6 @@ import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -51,7 +50,7 @@ public class OrganCap {
     }
 
     public static class OrganData extends ItemStackHandler {
-        private static final Map<Player, Boolean> wasUnderwaterMap = new HashMap<>();
+        private static final UUID CyberHealth = UUID.fromString("1e8b9e6e-1e8b-1e8b-1e8b-1e8b9e6e1e8b");
         private static final UUID CyberAttackDamage = UUID.fromString("3957c7ce-19e4-4a0c-9ecf-5d6651250b17");
         private static final UUID CyberAttackSpeed = UUID.fromString("f625d1e5-58e2-4bc6-b2f9-3726313797b0");
         private static final UUID CyberSpeed = UUID.fromString("046d8411-8f88-485e-a5a4-a9ce38da9cf3");
@@ -206,6 +205,8 @@ public class OrganCap {
                 CSNetwork.NETWORK_CHANNEL.send(PacketDistributor.PLAYER.with(() -> sPlayer),
                         new S2CSyncDataPacket(this, sPlayer.getId()));
             }
+
+            handleHeart();
         }
 
         private void synchronizeInventory() {
@@ -289,10 +290,8 @@ public class OrganCap {
 
         public void organTick() {
             boolean isUnderWater = player.isUnderWater();
-            boolean wasUnderWater = wasUnderwaterMap.getOrDefault(player, false);
 
-            handleLungs(isUnderWater, wasUnderWater);
-            wasUnderwaterMap.put(player, isUnderWater);
+            handleLungs(isUnderWater);
             applyEffects(CSAugUtil.armsEnabled, CSAugUtil.legsEnabled);
             applyOrganRejection();
 
@@ -305,11 +304,6 @@ public class OrganCap {
             } else {
                 disabledLimbs();
             }
-
-            // Placeholder
-            if (getStackInSlot(CSAugUtil.OrganSlots.HEART).isEmpty()) {
-                player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(0);
-            }
         }
 
         private boolean disableLimbCriteria() {
@@ -321,20 +315,20 @@ public class OrganCap {
         }
 
         private void disabledLimbs() {
-            AttributeInstance pSpeed = player.getAttribute(Attributes.MOVEMENT_SPEED);
-            if (pSpeed != null) {
-                player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-                pSpeed.removeModifier(CyberSpeed);
+            AttributeInstance speedAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+            AttributeInstance attackDamageAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+            AttributeInstance attackSpeedAttribute = player.getAttribute(Attributes.ATTACK_SPEED);
+
+            if (speedAttribute != null) {
+                speedAttribute.removeModifier(CyberSpeed);
             }
-            AttributeInstance pAttackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
-            if (pAttackDamage != null) {
-                player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(0);
-                pAttackDamage.removeModifier(CyberAttackDamage);
+
+            if (attackDamageAttribute != null) {
+                attackDamageAttribute.removeModifier(CyberAttackDamage);
             }
-            AttributeInstance pAttackSpeed = player.getAttribute(Attributes.ATTACK_SPEED);
-            if (pAttackSpeed != null) {
-                player.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(0);
-                pAttackSpeed.removeModifier(CyberAttackSpeed);
+
+            if (attackSpeedAttribute != null) {
+                attackSpeedAttribute.removeModifier(CyberAttackSpeed);
             }
         }
 
@@ -353,28 +347,63 @@ public class OrganCap {
         }
 
         private void resetAttributes() {
-            player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-            player.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(0);
-            player.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(0);
-            player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(CyberSpeed);
-            player.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(CyberAttackDamage);
-            player.getAttribute(Attributes.ATTACK_SPEED).removeModifier(CyberAttackSpeed);
-            player.getAttribute(Attributes.ARMOR).removeModifier(CyberArmor);
+            AttributeInstance speedAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+            AttributeInstance attackDamageAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+            AttributeInstance attackSpeedAttribute = player.getAttribute(Attributes.ATTACK_SPEED);
+            AttributeInstance armorAttribute = player.getAttribute(Attributes.ARMOR);
+
+            if (speedAttribute != null) {
+                speedAttribute.removeModifier(CyberSpeed);
+            }
+            if (attackDamageAttribute != null) {
+                attackDamageAttribute.removeModifier(CyberAttackDamage);
+            }
+            if (attackSpeedAttribute != null) {
+                attackSpeedAttribute.removeModifier(CyberAttackSpeed);
+            }
+            if (armorAttribute != null) {
+                armorAttribute.removeModifier(CyberArmor);
+            }
         }
 
         private void applyLegBuffs(double legBuffs) {
-            if (legBuffs > 0.0) {
-                player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(CyberSpeed, "CyberSpeed", legBuffs, AttributeModifier.Operation.ADDITION));
+            AttributeInstance speedAttribute = player.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (speedAttribute != null) {
+                AttributeModifier speedModifier = new AttributeModifier(
+                        CyberSpeed,
+                        "CyberSpeed",
+                        legBuffs,
+                        AttributeModifier.Operation.ADDITION
+                );
+                speedAttribute.removeModifier(CyberSpeed);
+                speedAttribute.addPermanentModifier(speedModifier);
             }
         }
 
         private void applyArmBuffs(double[] armBuffs) {
-            if (armBuffs[0] > 0.0) {
-                player.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(CyberAttackDamage, "CyberAttackDamage", armBuffs[0], AttributeModifier.Operation.ADDITION));
+            AttributeInstance attackDamageAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+            AttributeInstance attackSpeedAttribute = player.getAttribute(Attributes.ATTACK_SPEED);
+
+            if (attackDamageAttribute != null) {
+                AttributeModifier attackDamageModifier = new AttributeModifier(
+                        CyberAttackSpeed,
+                        "CyberAttackDamage",
+                        armBuffs[0],
+                        AttributeModifier.Operation.ADDITION
+                );
+                attackDamageAttribute.removeModifier(CyberAttackSpeed);
+                attackDamageAttribute.addPermanentModifier(attackDamageModifier);
             }
 
-            if (armBuffs[1] > 0.0) {
-                player.getAttribute(Attributes.ATTACK_SPEED).addTransientModifier(new AttributeModifier(CyberAttackSpeed, "CyberAttackSpeed", armBuffs[1], AttributeModifier.Operation.ADDITION));
+            if (attackSpeedAttribute != null) {
+                AttributeModifier attackSpeedModifier = new AttributeModifier(
+                        CyberAttackDamage,
+                        "CyberAttackSpeed",
+                        armBuffs[1],
+                        AttributeModifier.Operation.ADDITION
+                );
+                attackSpeedAttribute.removeModifier(CyberAttackDamage);
+                attackSpeedAttribute.addPermanentModifier(attackSpeedModifier);
             }
         }
 
@@ -459,7 +488,9 @@ public class OrganCap {
 
             for (int slot : legSlots) {
                 ItemStack stack = getStackInSlot(slot);
-                if (!stack.isEmpty() && stack.getItem() instanceof SimpleOrgan organ && organ.hasAttribute(CSOrganTiers.Attribute.SPEED)) {
+                if (stack.isEmpty()) {
+                    totalSpeedBonus += CSOrganTiers.REMOVED.getDoubleAttribute(CSOrganTiers.Attribute.SPEED);
+                } else if (stack.getItem() instanceof SimpleOrgan organ && organ.hasAttribute(CSOrganTiers.Attribute.SPEED)) {
                     IOrganTiers tier = organ.getTier();
                     if (isTierAboveProsthetic(slot) && hasCyberBrain()) {
                         totalSpeedBonus += legsEnabled
@@ -481,7 +512,10 @@ public class OrganCap {
 
             for (int slot : armSlots) {
                 ItemStack stack = getStackInSlot(slot);
-                if (!stack.isEmpty() && stack.getItem() instanceof SimpleOrgan organ) {
+                if (stack.isEmpty()) {
+                    totalAttackBonus += CSOrganTiers.REMOVED.getDoubleAttribute(CSOrganTiers.Attribute.ATTACK_DAMAGE);
+                    totalAttackSpeedBonus += CSOrganTiers.REMOVED.getDoubleAttribute(CSOrganTiers.Attribute.ATTACK_SPEED);
+                } else if (stack.getItem() instanceof SimpleOrgan organ) {
                     IOrganTiers tier = organ.getTier();
                     if (isTierAboveProsthetic(slot) && hasCyberBrain()) {
                         if (organ.hasAttribute(CSOrganTiers.Attribute.ATTACK_DAMAGE)) {
@@ -508,14 +542,54 @@ public class OrganCap {
             return new double[]{totalAttackBonus, totalAttackSpeedBonus};
         }
 
-        private void handleLungs(boolean isUnderWater, boolean wasUnderWater) {
+        private void handleHeart() {
+            AttributeInstance maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+            if (maxHealthAttribute == null) return;
+
+            ItemStack heartStack = getStackInSlot(CSAugUtil.OrganSlots.HEART);
+            if (heartStack.isEmpty()) {
+                double removedHealthValue = CSOrganTiers.REMOVED.getDoubleAttribute(CSOrganTiers.Attribute.HEALTH);
+                AttributeModifier removedHealthModifier = new AttributeModifier(
+                        CyberHealth,
+                        "CyberHealth",
+                        removedHealthValue,
+                        AttributeModifier.Operation.ADDITION
+                );
+                maxHealthAttribute.removeModifier(CyberHealth);
+                maxHealthAttribute.addPermanentModifier(removedHealthModifier);
+            } else if (heartStack.getItem() instanceof SimpleHeart heart) {
+                double healthValue = heart.getDoubleAttribute(CSOrganTiers.Attribute.HEALTH);
+                AttributeModifier healthModifier = new AttributeModifier(
+                        CyberHealth,
+                        "CyberHealth",
+                        healthValue,
+                        AttributeModifier.Operation.ADDITION
+                );
+                maxHealthAttribute.removeModifier(CyberHealth);
+                maxHealthAttribute.addPermanentModifier(healthModifier);
+            }
+        }
+
+        private void handleLungs(boolean isUnderWater) {
             ItemStack lungs = getStackInSlot(CSAugUtil.OrganSlots.LUNGS);
-            if (lungs.getItem() instanceof SimpleLungs) {
-                int additionalAirTime = ((SimpleLungs) lungs.getItem()).getAdditionalAirTime();
-                if (isUnderWater && !wasUnderWater) {
-                    player.setAirSupply(player.getAirSupply() + additionalAirTime);
+            if (!lungs.isEmpty() && lungs.getItem() instanceof SimpleLungs) {
+                int additionalSeconds = ((SimpleLungs) lungs.getItem()).getAdditionalAirTime();
+                if (isUnderWater && additionalSeconds > 0) {
+                    if (hasRespiration(player)) {
+                        return;
+                    }
+
+                    float probability = (float) additionalSeconds / (15.0F + additionalSeconds);
+                    if (player.getRandom().nextFloat() < probability) {
+                        player.setAirSupply(player.getAirSupply() + 1);
+                    }
                 }
             }
+        }
+
+        private boolean hasRespiration(Player player) {
+            ItemStack helmet = player.getInventory().getArmor(3);
+            return helmet != null && helmet.getEnchantmentLevel(Enchantments.RESPIRATION) > 0;
         }
 
         private double calculateArmorBuffs() {

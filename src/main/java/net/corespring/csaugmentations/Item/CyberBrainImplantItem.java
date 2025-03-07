@@ -5,6 +5,7 @@ import net.corespring.csaugmentations.Registry.CSEffects;
 import net.corespring.csaugmentations.Registry.CSItems;
 import net.corespring.csaugmentations.Utility.CSAugUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -90,6 +91,13 @@ public class CyberBrainImplantItem extends Item {
         if (!cyberBrainTooltip.isEmpty()) {
             pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.brain_implant").withStyle(ChatFormatting.GOLD));
             pTooltipComponents.add(cyberBrainTooltip.get(1));
+            if(Screen.hasShiftDown()) {
+                pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.separator").withStyle(ChatFormatting.LIGHT_PURPLE));
+                pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.brain_implant_desc1").withStyle(ChatFormatting.GOLD));
+                pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.brain_implant_desc2").withStyle(ChatFormatting.GOLD));
+            } else {
+                pTooltipComponents.add(Component.translatable("tooltip.cslibrary.shift_info").withStyle(ChatFormatting.GOLD));
+            }
         }
     }
 

@@ -25,6 +25,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -113,7 +114,6 @@ public class ForgeEvents {
                 }
             }
         }
-
 
         @SubscribeEvent
         public static void onPlayerEat(LivingEntityUseItemEvent.Finish event) {
@@ -235,7 +235,7 @@ public class ForgeEvents {
 
             @SubscribeEvent
             public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-                if (event.phase == TickEvent.Phase.START && !event.player.level().isClientSide()) {
+                if (event.phase == TickEvent.Phase.START && !event.player.level().isClientSide) {
                     applyKidneyEffects(event.player);
                     applyLiverEffects(event.player);
                 }
@@ -250,50 +250,52 @@ public class ForgeEvents {
 
             private static void applyKidneyEffects(LivingEntity entity) {
                 double combinedEfficiency = calculateKidneyBuffs(entity);
-                List<MobEffectInstance> kidneyEffectsToAdd = new ArrayList<>();
+                List<MobEffectInstance> effectsToAdd = new ArrayList<>();
+                List<MobEffect> effectsToRemove = new ArrayList<>();
 
-                for (MobEffectInstance effectInstance : new ArrayList<>(entity.getActiveEffects())) {
-                    IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
+                for (MobEffectInstance oldEffect : new ArrayList<>(entity.getActiveEffects())) {
+                    if (!isHarmfulEffect(oldEffect)) continue;
 
-                    if (isHarmfulEffect(effectInstance) && !mixinEffectInstance.cS_Augmentations$isEfficiencyApplied()) {
-                        adjustEffectDuration(effectInstance, combinedEfficiency);
-                        mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(true);
-                    }
+                    IMixinMobEffectInstance oldMixin = (IMixinMobEffectInstance) oldEffect;
+                    if (oldMixin.cS_Augmentations$isEfficiencyApplied()) continue;
 
-                    if (!entity.hasEffect(effectInstance.getEffect())) {
-                        mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(false);
-                    }
+                    MobEffectInstance newEffect = createAdjustedEffect(oldEffect, combinedEfficiency, false);
+                    effectsToRemove.add(oldEffect.getEffect());
+                    effectsToAdd.add(newEffect);
                 }
 
                 if (combinedEfficiency == 0.0) {
-                    kidneyEffectsToAdd.add(new MobEffectInstance(CSEffects.KIDNEY_FAILURE.get(), 40, 0, false, false, true));
+                    effectsToAdd.add(new MobEffectInstance(
+                            CSEffects.KIDNEY_FAILURE.get(), 40, 0, false, false, true
+                    ));
                 }
 
-                addRemoveEffects(entity, kidneyEffectsToAdd, new ArrayList<>());
+                addRemoveEffects(entity, effectsToAdd, effectsToRemove);
             }
 
             private static void applyLiverEffects(LivingEntity entity) {
                 double pEfficiency = calculateLiverBuffs(entity);
-                List<MobEffectInstance> liverEffectsToAdd = new ArrayList<>();
+                List<MobEffectInstance> effectsToAdd = new ArrayList<>();
+                List<MobEffect> effectsToRemove = new ArrayList<>();
 
-                for (MobEffectInstance effectInstance : new ArrayList<>(entity.getActiveEffects())) {
-                    IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
+                for (MobEffectInstance oldEffect : new ArrayList<>(entity.getActiveEffects())) {
+                    if (!isBeneficialEffect(oldEffect)) continue;
 
-                    if (isBeneficialEffect(effectInstance) && !mixinEffectInstance.cS_Augmentations$isEfficiencyApplied()) {
-                        adjustEffectDurationAndTier(effectInstance, pEfficiency);
-                        mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(true);
-                    }
+                    IMixinMobEffectInstance oldMixin = (IMixinMobEffectInstance) oldEffect;
+                    if (oldMixin.cS_Augmentations$isEfficiencyApplied()) continue;
 
-                    if (!entity.hasEffect(effectInstance.getEffect())) {
-                        mixinEffectInstance.cS_Augmentations$setEfficiencyApplied(false);
-                    }
+                    MobEffectInstance newEffect = createAdjustedEffect(oldEffect, pEfficiency, true);
+                    effectsToRemove.add(oldEffect.getEffect());
+                    effectsToAdd.add(newEffect);
                 }
 
                 if (pEfficiency == 0.0) {
-                    liverEffectsToAdd.add(new MobEffectInstance(CSEffects.LIVER_FAILURE.get(), 40, 0, false, false, true));
+                    effectsToAdd.add(new MobEffectInstance(
+                            CSEffects.LIVER_FAILURE.get(), 40, 0, false, false, true
+                    ));
                 }
 
-                addRemoveEffects(entity, liverEffectsToAdd, new ArrayList<>());
+                addRemoveEffects(entity, effectsToAdd, effectsToRemove);
             }
 
             private static double calculateKidneyBuffs(LivingEntity entity) {
@@ -310,7 +312,7 @@ public class ForgeEvents {
                 );
             }
 
-            private static void adjustEffectDuration(MobEffectInstance effectInstance, double combinedEfficiency) {
+            public static void adjustEffectDuration(MobEffectInstance effectInstance, double combinedEfficiency) {
                 IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
                 int duration = mixinEffectInstance.cS_Augmentations$getDuration();
                 float multiplier = combinedEfficiency > 1.0 ?
@@ -319,7 +321,7 @@ public class ForgeEvents {
                 mixinEffectInstance.cS_Augmentations$setDuration((int) (duration * multiplier));
             }
 
-            private static void adjustEffectDurationAndTier(MobEffectInstance effectInstance, double combinedEfficiency) {
+            public static void adjustEffectDurationAndTier(MobEffectInstance effectInstance, double combinedEfficiency) {
                 IMixinMobEffectInstance mixinEffectInstance = (IMixinMobEffectInstance) effectInstance;
                 int duration = mixinEffectInstance.cS_Augmentations$getDuration();
                 float multiplier = combinedEfficiency > 1.0 ?
@@ -350,19 +352,49 @@ public class ForgeEvents {
                 return totalEfficiency.get();
             }
 
-            private static boolean isHarmfulEffect(MobEffectInstance effectInstance) {
+            private static MobEffectInstance createAdjustedEffect(MobEffectInstance original, double efficiency, boolean isBeneficial) {
+                int newDuration = calculateNewDuration(original, efficiency, isBeneficial);
+                int newAmplifier = calculateNewAmplifier(original, efficiency, isBeneficial);
+
+                MobEffectInstance newEffect = new MobEffectInstance(
+                        original.getEffect(),
+                        newDuration,
+                        newAmplifier,
+                        original.isAmbient(),
+                        original.isVisible(),
+                        original.showIcon()
+                );
+
+                ((IMixinMobEffectInstance) newEffect).cS_Augmentations$setEfficiencyApplied(true);
+                return newEffect;
+            }
+
+            public static boolean isHarmfulEffect(MobEffectInstance effectInstance) {
                 return effectInstance.getEffect().getCategory() == MobEffectCategory.HARMFUL;
             }
 
-            private static boolean isBeneficialEffect(MobEffectInstance effectInstance) {
+            public static boolean isBeneficialEffect(MobEffectInstance effectInstance) {
                 return effectInstance.getEffect().getCategory() == MobEffectCategory.BENEFICIAL;
             }
 
             private static void addRemoveEffects(LivingEntity entity,
                                                  List<MobEffectInstance> effectsToAdd,
-                                                 List<MobEffectInstance> effectsToRemove) {
+                                                 List<MobEffect> effectsToRemove) {
+                effectsToRemove.forEach(entity::removeEffect);
                 effectsToAdd.forEach(entity::addEffect);
-                effectsToRemove.forEach(effect -> entity.removeEffect(effect.getEffect()));
+            }
+
+            private static int calculateNewDuration(MobEffectInstance effect, double efficiency, boolean isBeneficial) {
+                float multiplier = isBeneficial ?
+                        1.0f + (float) (efficiency - 1.0) :
+                        1.0f / (float) efficiency;
+
+                return (int) (effect.getDuration() * multiplier);
+            }
+
+            private static int calculateNewAmplifier(MobEffectInstance effect, double efficiency, boolean isBeneficial) {
+                if (!isBeneficial) return effect.getAmplifier();
+                return effect.getAmplifier() + (int) ((efficiency - 1.0) / 0.5);
             }
 
             private static void checkPendingWithdrawals(LivingEntity entity) {

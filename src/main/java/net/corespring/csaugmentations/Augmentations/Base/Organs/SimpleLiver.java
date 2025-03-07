@@ -4,6 +4,7 @@ import net.corespring.csaugmentations.Augmentations.Base.SimpleOrgan;
 import net.corespring.csaugmentations.Utility.CSOrganTiers;
 import net.corespring.csaugmentations.Utility.IOrganTiers;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,5 +29,12 @@ public abstract class SimpleLiver extends SimpleOrgan {
                 .append("" + getEfficiency())
                 .append(Component.translatable("tooltip.csaugmentations.liver"))
                 .withStyle(ChatFormatting.BLUE));
+        if(Screen.hasShiftDown()) {
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.separator").withStyle(ChatFormatting.LIGHT_PURPLE));
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.liver_desc1").withStyle(ChatFormatting.GOLD));
+            pTooltipComponents.add(Component.translatable("tooltip.csaugmentations.liver_desc2").withStyle(ChatFormatting.GOLD));
+        } else {
+            pTooltipComponents.add(Component.translatable("tooltip.cslibrary.shift_info").withStyle(ChatFormatting.GOLD));
+        }
     }
 }

@@ -35,6 +35,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new CSWorldGenProvider(packOutput, lookupProvider));
 
         generator.addProvider(event.includeServer(), new CSGlobalLootModifiersProvider(packOutput));
+        generator.addProvider(event.includeServer(), new CSPoiTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
     }
 
 }

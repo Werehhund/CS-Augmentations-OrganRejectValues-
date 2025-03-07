@@ -61,6 +61,7 @@ public class CSItems {
     public static final Supplier<Item> CYBER_HEART = ITEMS.register("cyber_heart", () -> new CyberHeart(CSOrganTiers.CYBERNETIC, pOrganItem()));
     public static final Supplier<Item> CYBER_KIDNEY = ITEMS.register("cyber_kidney", () -> new CyberKidney(CSOrganTiers.CYBERNETIC, pOrganItem()));
     public static final Supplier<Item> CYBER_LIVER = ITEMS.register("cyber_liver", () -> new CyberLiver(CSOrganTiers.CYBERNETIC, pOrganItem()));
+    public static final Supplier<Item> CYBER_LUNGS = ITEMS.register("cyber_lungs", () -> new CyberLungs(CSOrganTiers.CYBERNETIC, pOrganItem()));
     public static final Supplier<Item> CYBER_RIBS = ITEMS.register("cyber_ribs", () -> new CyberRibs(CSOrganTiers.CYBERNETIC, pOrganItem()));
     public static final Supplier<Item> CYBER_JUMPER = ITEMS.register("cyber_jumper", () -> new CyberJumper(CSOrganTiers.CYBERNETIC, pOrganItem(), 1.13, 1200, 4.0f));
     public static final Supplier<Item> CYBER_WARPER = ITEMS.register("cyber_warper", () -> new CyberWarper(CSOrganTiers.CYBERNETIC, pOrganItem(), 15, 1200, 4.0f, 40));
