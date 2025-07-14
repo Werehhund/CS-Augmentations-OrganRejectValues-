@@ -228,13 +228,13 @@ public class OrganCap {
         public void applyOrganRejection() {
             if (player != null && !player.hasEffect(CSEffects.Immunosuppressant.get()) && CSCommonConfigs.ORGAN_REJECTION_TOGGLE.get()) {
 
-                if (this.currentCyberwareValue >= 10 && this.currentCyberwareValue < 25) {
+                if (this.currentCyberwareValue >= 18 && this.currentCyberwareValue < 36) {
                     player.addEffect(new MobEffectInstance(CSEffects.ORGAN_REJECTION.get(), 40, 0, false, false, true));
-                } else if (this.currentCyberwareValue >= 25 && this.currentCyberwareValue < 50) {
+                } else if (this.currentCyberwareValue >= 36 && this.currentCyberwareValue < 54) {
                     player.addEffect(new MobEffectInstance(CSEffects.ORGAN_REJECTION.get(), 40, 1, false, false, true));
-                } else if (this.currentCyberwareValue >= 50 && this.currentCyberwareValue < 70) {
+                } else if (this.currentCyberwareValue >= 54 && this.currentCyberwareValue < 72) {
                     player.addEffect(new MobEffectInstance(CSEffects.ORGAN_REJECTION.get(), 40, 2, false, false, true));
-                } else if (this.currentCyberwareValue >= 70 && this.currentCyberwareValue < 100) {
+                } else if (this.currentCyberwareValue >= 72 && this.currentCyberwareValue < 100) {
                     player.addEffect(new MobEffectInstance(CSEffects.ORGAN_REJECTION.get(), 40, 3, false, false, true));
                 } else if (this.currentCyberwareValue >= 100 && this.currentCyberwareValue < 125) {
                     player.addEffect(new MobEffectInstance(CSEffects.ORGAN_REJECTION.get(), 40, 4, false, false, true));
